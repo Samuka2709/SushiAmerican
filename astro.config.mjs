@@ -6,4 +6,5 @@ import { restaurant } from './src/data/restaurant.ts';
 const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const site = restaurant.siteUrl || (vercelUrl ? `https://${vercelUrl}` : 'http://localhost:4321');
 
-export default defineConfig({ site });
+// CSS embutido no HTML: uma requisição a menos antes da primeira pintura
+export default defineConfig({ site, build: { inlineStylesheets: 'always' } });

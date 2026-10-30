@@ -1,4 +1,25 @@
 /* ==========================================================================
+   Fontes de reserva com as medidas das fontes do site: o texto não muda de
+   tamanho nem de lugar quando a fonte final termina de carregar
+   ========================================================================== */
+@font-face {
+  font-family: 'Cormorant Fallback';
+  src: local('Times New Roman'), local('Liberation Serif'), local('Tinos');
+  size-adjust: 95.04%;
+  ascent-override: 97.22%;
+  descent-override: 30.2%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Manrope Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Arimo');
+  size-adjust: 100.76%;
+  ascent-override: 105.8%;
+  descent-override: 29.77%;
+  line-gap-override: 0%;
+}
+
+/* ==========================================================================
    Tokens
    ========================================================================== */
 :root {
@@ -13,8 +34,8 @@
   --line: rgb(198 161 91 / 0.3);
   --line-soft: rgb(245 245 242 / 0.08);
 
-  --serif: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
-  --sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --serif: 'Cormorant Garamond', 'Cormorant Fallback', Georgia, serif;
+  --sans: 'Manrope', 'Manrope Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --jp: 'Shippori Mincho', 'Noto Serif JP', serif;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);

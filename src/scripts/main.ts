@@ -213,8 +213,6 @@ function splitWords(el: HTMLElement) {
 }
 
 if (!reduced) {
-  $$('[data-split-auto]').forEach(splitWords);
-
   // Hero: zoom lento da foto e palavras subindo de trás da máscara (80 ms entre elas)
   const heroImg = $('.hero__img');
   if (heroImg) gsap.fromTo(heroImg, { scale: 1.1 }, { scale: 1, duration: 1.6, ease: 'power2.out' });
@@ -222,6 +220,15 @@ if (!reduced) {
   gsap.fromTo(heroWords, { y: '110%' }, { y: '0%', duration: 0.9, ease: EASE, stagger: 0.08, delay: 0.1 });
   gsap.fromTo('.hero__eyebrow, .hero__info', { opacity: 0 }, { opacity: 1, duration: 0.8, delay: 0.5, ease: 'power1.out' });
 
+  $$('[data-split-auto]').forEach(splitWords);
+
+  // O resto fica abaixo da dobra: os gatilhos de rolagem são montados depois que o hero
+  // já começou, para não travar o carregamento
+  if ('requestIdleCallback' in window) requestIdleCallback(setupScrollReveals, { timeout: 800 });
+  else setTimeout(setupScrollReveals, 200);
+}
+
+function setupScrollReveals() {
   // Títulos de seção
   $$('[data-split-auto]').forEach((el) => {
     gsap.fromTo(

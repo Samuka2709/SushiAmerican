@@ -1,4 +1,16 @@
 ---
+// Fontes servidas pelo próprio site (só o subconjunto latino): sem folha externa bloqueando a pintura
+import '@fontsource/cormorant-garamond/latin-300.css';
+import '@fontsource/cormorant-garamond/latin-400.css';
+import '@fontsource/cormorant-garamond/latin-500.css';
+import '@fontsource/cormorant-garamond/latin-300-italic.css';
+import '@fontsource/cormorant-garamond/latin-400-italic.css';
+import '@fontsource/manrope/latin-400.css';
+import '@fontsource/manrope/latin-500.css';
+import '@fontsource/manrope/latin-600.css';
+import '@fontsource/manrope/latin-700.css';
+import serifHero from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2?url';
+import sansBody from '@fontsource/manrope/files/manrope-latin-400-normal.woff2?url';
 import '../styles/global.css';
 import { restaurant as r } from '../data/restaurant';
 import { fullAddress } from '../lib/format';
@@ -62,13 +74,16 @@ const schema = {
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preload" href={serifHero} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={sansBody} as="font" type="font/woff2" crossorigin />
+    <!-- Kanji decorativos: só os glifos usados, carregados sem bloquear a pintura -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@400;500;600;700&display=swap"
+      href={`https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap&text=${encodeURIComponent(r.signature.kanji + '栞')}`}
+      media="print"
+      onload="this.media='all'"
     />
-    <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap&text=${encodeURIComponent(r.signature.kanji + '栞')}`} />
 
     <script is:inline>document.documentElement.classList.add('js');</script>
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
