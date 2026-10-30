@@ -60,7 +60,7 @@ export const restaurant = {
   },
 
   contact: {
-    whatsapp: '5573999999999', // DEMO (somente números, com DDI e DDD)
+    whatsapp: '5573998258544', // DEMO (somente números, com DDI e DDD)
     phone: '+55 73 3231-0000', // DEMO
     phoneHref: '+557332310000', // DEMO
     instagram: 'shiorisushi', // DEMO (sem @)
