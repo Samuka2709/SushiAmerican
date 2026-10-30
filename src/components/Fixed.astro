@@ -1,0 +1,18 @@
+---
+import { whatsappLink, genericOrderMessage } from '../lib/format';
+import Icon from './Icon.astro';
+const wa = whatsappLink(genericOrderMessage());
+---
+<div class="mobile-bar" data-mobile-bar role="region" aria-label="Ações rápidas">
+  <a class="btn btn--primary" href={wa} target="_blank" rel="noopener">
+    <Icon name="whatsapp" class="btn__arrow" /> Pedir no WhatsApp
+  </a>
+  <a class="btn btn--outline" href="#reservas" data-scroll-link>Reservar</a>
+</div>
+
+<a class="wa-float" href={wa} target="_blank" rel="noopener" data-wa-float aria-label="Pedir pelo WhatsApp">
+  <Icon name="whatsapp" />
+</a>
+
+<div class="cursor" aria-hidden="true" data-cursor-el><span data-cursor-label></span></div>
+<div class="grain" aria-hidden="true"></div>
