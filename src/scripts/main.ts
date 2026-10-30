@@ -1,6 +1,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import { initBag } from './bag';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -223,7 +224,9 @@ if (!reduced) {
   $$('[data-split-auto]').forEach(splitWords);
 
   // O resto fica abaixo da dobra: os gatilhos de rolagem são montados depois que o hero
-  // já começou, para não travar o carregamento
+  // já começou, para não travar o carregamento. Sem `once`: o padrão já toca uma vez só,
+  // e gatilhos que se destroem durante o refresh quebram o ScrollTrigger quando a página
+  // abre já rolada (link com #âncora)
   if ('requestIdleCallback' in window) requestIdleCallback(setupScrollReveals, { timeout: 800 });
   else setTimeout(setupScrollReveals, 200);
 }
@@ -234,21 +237,20 @@ function setupScrollReveals() {
     gsap.fromTo(
       $$('.mask > span', el),
       { y: '110%' },
-      { y: '0%', duration: 0.9, ease: EASE, stagger: 0.06, scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+      { y: '0%', duration: 0.9, ease: EASE, stagger: 0.06, scrollTrigger: { trigger: el, start: 'top 88%' } }
     );
   });
 
   // Fade + subida
   ScrollTrigger.batch('[data-reveal="fade"]', {
     start: 'top 90%',
-    once: true,
     onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 0.8, ease: EASE, stagger: 0.08, overwrite: true }),
   });
 
   // Imagens: abertura de baixo para cima + zoom 1.15 → 1
   $$('[data-reveal="clip"]').forEach((el) => {
     const img = $('img', el);
-    const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 90%' } });
     tl.to(el, { clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power3.inOut' });
     if (img) tl.to(img, { scale: 1, duration: 1.2, ease: EASE }, 0);
   });
@@ -258,7 +260,6 @@ function setupScrollReveals() {
   gsap.set(firstCards, { opacity: 0, y: 24 });
   ScrollTrigger.batch(firstCards, {
     start: 'top 92%',
-    once: true,
     onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 0.8, ease: EASE, stagger: 0.08, clearProps: 'transform' }),
   });
 
@@ -281,7 +282,7 @@ function setupScrollReveals() {
       v: target,
       duration: 1.8,
       ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+      scrollTrigger: { trigger: el, start: 'top 90%' },
       onUpdate: () => (el.textContent = Math.round(obj.v).toLocaleString('pt-BR')),
     });
   });
@@ -541,10 +542,14 @@ if (form) {
     if (f.notes.value.trim()) lines.push(`Observações: ${f.notes.value.trim()}`);
     const url = `https://wa.me/${data.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
     status.textContent = 'Abrindo o WhatsApp com a sua mensagem. A reserva será confirmada pela nossa equipe.';
-    const win = window.open(url, '_blank', 'noopener');
-    if (!win) window.location.href = url;
+    // com 'noopener' o window.open sempre devolve null; corta o vínculo depois
+    const win = window.open(url, '_blank');
+    if (win) win.opener = null;
+    else window.location.href = url;
   });
 }
+
+initBag({ lenis, whatsapp: data.whatsapp, restaurantName: data.name, reduced });
 
 /* --------------------------------------------------------------------------
    Desktop: cursor sobre imagens clicáveis e botões magnéticos

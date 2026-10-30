@@ -13,6 +13,7 @@ import Reservation from '../components/Reservation.astro';
 import Visit from '../components/Visit.astro';
 import Footer from '../components/Footer.astro';
 import Fixed from '../components/Fixed.astro';
+import Bag from '../components/Bag.astro';
 import { restaurant } from '../data/restaurant';
 ---
 <Base>
@@ -31,6 +32,7 @@ import { restaurant } from '../data/restaurant';
   </main>
   <Footer />
   <Fixed />
+  <Bag />
   <script type="application/json" id="site-data" set:html={JSON.stringify({ hours: restaurant.hours, timezone: restaurant.timezone, whatsapp: restaurant.contact.whatsapp, gallery: restaurant.gallery.map((g) => g.alt), reservation: { slotMinutes: restaurant.reservation.slotMinutes, lastSlotBeforeClose: restaurant.reservation.lastSlotBeforeClose }, name: restaurant.fullName })} />
   <script>
     import '../scripts/main';

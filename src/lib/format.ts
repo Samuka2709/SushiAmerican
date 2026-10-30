@@ -9,9 +9,6 @@ export function whatsappLink(message?: string) {
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
-export const orderMessage = (dish: string, value: number) =>
-  `Olá! Gostaria de pedir: ${dish} (${price(value)}).`;
-
 export const genericOrderMessage = () => `Olá! Gostaria de fazer um pedido no ${restaurant.fullName}.`;
 
 export const DAYS = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];

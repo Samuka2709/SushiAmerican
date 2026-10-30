@@ -15,7 +15,7 @@ const wa = whatsappLink(genericOrderMessage());
       </ul>
     </nav>
     <div class="header__actions">
-      <a class="btn btn--primary btn--sm header__order" href={wa} target="_blank" rel="noopener" data-magnetic>
+      <a class="btn btn--primary btn--sm header__order" href={wa} target="_blank" data-order-generic rel="noopener" data-magnetic>
         Pedir <Icon name="arrow" class="btn__arrow" />
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-open>
@@ -44,7 +44,7 @@ const wa = whatsappLink(genericOrderMessage());
     </ul>
   </nav>
   <div class="mobile-menu__foot">
-    <a class="btn btn--primary btn--block" href={wa} target="_blank" rel="noopener">
+    <a class="btn btn--primary btn--block" href={wa} target="_blank" data-order-generic rel="noopener">
       <Icon name="whatsapp" class="btn__arrow" /> Pedir no WhatsApp
     </a>
     <p>{fullAddress()}</p>

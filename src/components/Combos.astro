@@ -1,6 +1,6 @@
 ---
 import { restaurant as r } from '../data/restaurant';
-import { price, whatsappLink, orderMessage } from '../lib/format';
+import { price } from '../lib/format';
 import Photo from './Photo.astro';
 import SectionLabel from './SectionLabel.astro';
 import Icon from './Icon.astro';
@@ -27,14 +27,15 @@ import Icon from './Icon.astro';
             <ul class="combo__includes" aria-label={`O que vem no Combo ${c.name}`}>
               {c.includes.map((i) => <li>{i}</li>)}
             </ul>
-            <a
+            <button
               class:list={['btn btn--block', c.featured ? 'btn--primary' : 'btn--gold']}
-              href={whatsappLink(orderMessage(`Combo ${c.name}, ${c.pieces} peças`, c.price))}
-              target="_blank"
-              rel="noopener"
+              type="button"
+              data-add={`Combo ${c.name}`}
+              data-price={c.price}
+              data-detail={`${c.pieces} peças`}
             >
-              Pedir o Combo {c.name} <Icon name="arrow" class="btn__arrow" />
-            </a>
+              <span data-add-label>Adicionar o Combo {c.name}</span> <Icon name="plus" class="btn__arrow" />
+            </button>
           </div>
         </li>
       ))}

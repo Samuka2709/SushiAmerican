@@ -144,12 +144,18 @@ export const restaurant = {
     ],
   },
 
+  /** Pedido montado na sacola do site e enviado como mensagem de WhatsApp */
+  order: {
+    payment: ['Pix', 'Cartão na entrega', 'Dinheiro'], // DEMO
+    deliveryNote: 'A taxa de entrega depende do bairro e é confirmada no WhatsApp.', // DEMO
+  },
+
   /** Títulos e textos curtos de cada seção */
   sections: {
     heroEyebrow: 'Sushi de balcão', // DEMO
     menu: {
       title: 'O que sai do balcão hoje.', // DEMO
-      lead: 'Preços por porção. Toque em “Pedir” e a mensagem chega pronta no nosso WhatsApp.',
+      lead: 'Preços por porção. Monte seu pedido aqui e envie tudo de uma vez pelo WhatsApp.',
     },
     combos: {
       title: 'Para dividir à mesa.', // DEMO

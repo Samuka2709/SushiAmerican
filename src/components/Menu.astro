@@ -1,6 +1,6 @@
 ---
 import { restaurant as r, type Tag } from '../data/restaurant';
-import { price, whatsappLink, orderMessage } from '../lib/format';
+import { price } from '../lib/format';
 import Photo from './Photo.astro';
 import SectionLabel from './SectionLabel.astro';
 import Icon from './Icon.astro';
@@ -60,9 +60,9 @@ const tagClass = (t: Tag) => (t === 'Mais pedido' ? 'tag tag--top' : 'tag');
                     <p class="card__desc">{d.description}</p>
                     <div class="card__meta">
                       <span class="card__pieces">{d.pieces ?? 'Porção'}</span>
-                      <a class="order-link" href={whatsappLink(orderMessage(d.name, d.price))} target="_blank" rel="noopener" aria-label={`Pedir ${d.name} pelo WhatsApp`}>
-                        Pedir <Icon name="arrow" />
-                      </a>
+                      <button class="order-link" type="button" data-add={d.name} data-price={d.price} data-detail={d.pieces} aria-label={`Adicionar ${d.name} ao pedido`}>
+                        <span data-add-label>Adicionar</span> <Icon name="plus" class="order-link__plus" /><Icon name="check" class="order-link__check" />
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -82,9 +82,9 @@ const tagClass = (t: Tag) => (t === 'Mais pedido' ? 'tag tag--top' : 'tag');
                     </div>
                     <div class="menu-row__right">
                       <p class="price">{price(d.price)}</p>
-                      <a class="order-link order-link--icon" href={whatsappLink(orderMessage(d.name, d.price))} target="_blank" rel="noopener" aria-label={`Pedir ${d.name} pelo WhatsApp`}>
-                        <Icon name="arrow" />
-                      </a>
+                      <button class="order-link order-link--icon" type="button" data-add={d.name} data-price={d.price} data-detail={d.pieces} aria-label={`Adicionar ${d.name} ao pedido`}>
+                        <Icon name="plus" class="order-link__plus" /><Icon name="check" class="order-link__check" />
+                      </button>
                     </div>
                     <p class="menu-row__desc">
                       <span>{d.description}</span>
