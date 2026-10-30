@@ -3,7 +3,7 @@ import '../styles/global.css';
 import { restaurant as r } from '../data/restaurant';
 import { fullAddress } from '../lib/format';
 
-const site = r.siteUrl.replace(/\/$/, '');
+const site = (Astro.site?.href ?? '').replace(/\/$/, '');
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const schema = {
   '@context': 'https://schema.org',

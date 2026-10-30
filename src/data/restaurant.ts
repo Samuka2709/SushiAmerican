@@ -47,7 +47,8 @@ export const restaurant = {
   tagline: 'Peixe do dia, arroz da casa, mão firme.', // DEMO
   city: 'Ilhéus', // DEMO
   neighborhood: 'Pontal', // DEMO
-  siteUrl: 'https://shiorisushi.com.br', // DEMO
+  /** Domínio próprio do cliente. Vazio = usa o endereço de produção da Vercel. */
+  siteUrl: '', // DEMO (ex.: 'https://shiorisushi.com.br')
   timezone: 'America/Bahia', // DEMO
   foundedYear: 2014, // DEMO
   priceRange: '$$$',
