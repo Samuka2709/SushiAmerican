@@ -27,7 +27,7 @@ const schema = {
   image: `${site}/og.jpg`,
   telephone: r.contact.phoneHref,
   priceRange: r.priceRange,
-  servesCuisine: ['Japonesa', 'Sushi'],
+  servesCuisine: ['Japanese', 'Sushi'],
   acceptsReservations: true,
   hasMenu: `${site}/#cardapio`,
   menu: `${site}/#cardapio`,
@@ -47,7 +47,7 @@ const schema = {
 };
 ---
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -58,7 +58,7 @@ const schema = {
     <meta name="color-scheme" content="dark" />
 
     <meta property="og:type" content="restaurant" />
-    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={r.fullName} />
     <meta property="og:title" content={r.seo.title} />
     <meta property="og:description" content={r.seo.description} />
@@ -100,7 +100,7 @@ const schema = {
     <meta name="geo.placename" content={fullAddress()} />
   </head>
   <body>
-    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <a class="skip-link" href="#conteudo">Skip to content</a>
     <slot />
   </body>
 </html>

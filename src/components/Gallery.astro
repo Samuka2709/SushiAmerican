@@ -11,7 +11,7 @@ const ratioFor = (span: string) => (span === 'tall' ? 0.5 : span === 'wide' ? 2 
   <div class="container">
     <header class="section-head section-head--split">
       <div>
-        <SectionLabel num="04" text="Galeria" />
+        <SectionLabel num="04" text="Gallery" />
         <h2 class="display h2 section-head__title reveal-words" id="galeria-title" data-split-auto>{r.sections.gallery.title}</h2>
       </div>
       <a class="link-line gold" href={`https://instagram.com/${r.contact.instagram}`} target="_blank" rel="noopener" data-reveal="fade">
@@ -27,8 +27,8 @@ const ratioFor = (span: string) => (span === 'tall' ? 0.5 : span === 'wide' ? 2 
             class="gallery__item"
             data-lightbox-index={i}
             data-full={photoUrl(p.id, 1800, p.span === 'tall' ? 0.75 : 1.5, 75)}
-            data-cursor="Ver"
-            aria-label={`Ampliar foto: ${p.alt}`}
+            data-cursor="View"
+            aria-label={`Enlarge photo: ${p.alt}`}
           >
             <Photo photo={p} ratio={ratioFor(p.span)} widths={p.span === 'wide' ? [640, 960, 1400] : [360, 540, 800]} sizes={p.span === 'wide' ? '(min-width: 900px) 50vw, 100vw' : '(min-width: 900px) 25vw, 50vw'} />
           </button>
@@ -37,11 +37,11 @@ const ratioFor = (span: string) => (span === 'tall' ? 0.5 : span === 'wide' ? 2 
     </ul>
   </div>
 
-  <dialog class="lightbox" aria-label="Galeria ampliada" data-lightbox>
+  <dialog class="lightbox" aria-label="Enlarged gallery" data-lightbox>
     <div class="lightbox__bar">
       <span data-lightbox-count>01 / {String(r.gallery.length).padStart(2, '0')}</span>
       <button class="icon-btn" type="button" data-lightbox-close>
-        <Icon name="close" /><span class="sr-only">Fechar galeria</span>
+        <Icon name="close" /><span class="sr-only">Close gallery</span>
       </button>
     </div>
     <div class="lightbox__stage">
@@ -50,8 +50,8 @@ const ratioFor = (span: string) => (span === 'tall' ? 0.5 : span === 'wide' ? 2 
     <div class="lightbox__caption">
       <p data-lightbox-caption aria-live="polite"></p>
       <div class="lightbox__nav">
-        <button class="icon-btn" type="button" data-lightbox-prev><Icon name="prev" /><span class="sr-only">Foto anterior</span></button>
-        <button class="icon-btn" type="button" data-lightbox-next><Icon name="next" /><span class="sr-only">Próxima foto</span></button>
+        <button class="icon-btn" type="button" data-lightbox-prev><Icon name="prev" /><span class="sr-only">Previous photo</span></button>
+        <button class="icon-btn" type="button" data-lightbox-next><Icon name="next" /><span class="sr-only">Next photo</span></button>
       </div>
     </div>
   </dialog>
