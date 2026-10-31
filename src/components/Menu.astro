@@ -5,13 +5,13 @@ import Photo from './Photo.astro';
 import SectionLabel from './SectionLabel.astro';
 import Icon from './Icon.astro';
 
-const tagClass = (t: Tag) => (t === 'Mais pedido' ? 'tag tag--top' : 'tag');
+const tagClass = (t: Tag) => (t === 'Best seller' ? 'tag tag--top' : 'tag');
 ---
 <section class="section menu" id="cardapio" aria-labelledby="cardapio-title">
   <div class="container">
     <header class="section-head section-head--split">
       <div>
-        <SectionLabel num="02" text="Cardápio" />
+        <SectionLabel num="02" text="Menu" />
         <h2 class="display h2 section-head__title reveal-words" id="cardapio-title" data-split-auto>{r.sections.menu.title}</h2>
       </div>
       <p class="lead" data-reveal="fade">{r.sections.menu.lead}</p>
@@ -19,7 +19,7 @@ const tagClass = (t: Tag) => (t === 'Mais pedido' ? 'tag tag--top' : 'tag');
 
     <div class="tabs" data-tabs>
       <div class="tabs__scroller">
-        <div class="tabs__list" role="tablist" aria-label="Categorias do cardápio">
+        <div class="tabs__list" role="tablist" aria-label="Menu categories">
           {r.menu.map((c, i) => (
             <button
               class="tab"
@@ -59,9 +59,9 @@ const tagClass = (t: Tag) => (t === 'Mais pedido' ? 'tag tag--top' : 'tag');
                     <p class="price">{price(d.price)}</p>
                     <p class="card__desc">{d.description}</p>
                     <div class="card__meta">
-                      <span class="card__pieces">{d.pieces ?? 'Porção'}</span>
-                      <button class="order-link" type="button" data-add={d.name} data-price={d.price} data-detail={d.pieces} aria-label={`Adicionar ${d.name} ao pedido`}>
-                        <span data-add-label>Adicionar</span> <Icon name="plus" class="order-link__plus" /><Icon name="check" class="order-link__check" />
+                      <span class="card__pieces">{d.pieces ?? 'Portion'}</span>
+                      <button class="order-link" type="button" data-add={d.name} data-price={d.price} data-detail={d.pieces} aria-label={`Add ${d.name} to your order`}>
+                        <span data-add-label>Add</span> <Icon name="plus" class="order-link__plus" /><Icon name="check" class="order-link__check" />
                       </button>
                     </div>
                   </div>
@@ -72,7 +72,7 @@ const tagClass = (t: Tag) => (t === 'Mais pedido' ? 'tag tag--top' : 'tag');
 
           {c.more && c.more.length > 0 && (
             <div class="menu-list">
-              {c.featured.length > 0 && <p class="label menu-list__title">Também nesta categoria</p>}
+              {c.featured.length > 0 && <p class="label menu-list__title">Also in this category</p>}
               <ul>
                 {c.more.map((d) => (
                   <li class="menu-row">
@@ -82,7 +82,7 @@ const tagClass = (t: Tag) => (t === 'Mais pedido' ? 'tag tag--top' : 'tag');
                     </div>
                     <div class="menu-row__right">
                       <p class="price">{price(d.price)}</p>
-                      <button class="order-link order-link--icon" type="button" data-add={d.name} data-price={d.price} data-detail={d.pieces} aria-label={`Adicionar ${d.name} ao pedido`}>
+                      <button class="order-link order-link--icon" type="button" data-add={d.name} data-price={d.price} data-detail={d.pieces} aria-label={`Add ${d.name} to your order`}>
                         <Icon name="plus" class="order-link__plus" /><Icon name="check" class="order-link__check" />
                       </button>
                     </div>

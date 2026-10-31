@@ -7,12 +7,12 @@ const g = r.google;
   <section class="section" id="avaliacoes" aria-labelledby="avaliacoes-title">
     <div class="container reviews">
       <div>
-        <SectionLabel text="Avaliações no Google" />
-        <h2 class="sr-only" id="avaliacoes-title">Avaliações</h2>
-        <p class="reviews__score">{g.rating.toLocaleString('pt-BR', { minimumFractionDigits: 1 })}</p>
+        <SectionLabel text="Google reviews" />
+        <h2 class="sr-only" id="avaliacoes-title">Reviews</h2>
+        <p class="reviews__score">{g.rating.toLocaleString('en-US', { minimumFractionDigits: 1 })}</p>
         <p class="muted">
-          {g.count.toLocaleString('pt-BR')} avaliações ·{' '}
-          <a class="link-line" href={g.url} target="_blank" rel="noopener">ver no Google</a>
+          {g.count.toLocaleString('en-US')} reviews ·{' '}
+          <a class="link-line" href={g.url} target="_blank" rel="noopener">see on Google</a>
         </p>
       </div>
       <div class="reviews__list">

@@ -21,11 +21,11 @@ const s = r.signature;
         <small>{s.priceNote}</small>
       </p>
       <div class="signature__cta" data-reveal="fade">
-        <a class="btn btn--primary" href="#reservas" data-scroll-link data-magnetic>
-          {s.cta} <Icon name="arrow" class="btn__arrow" />
-        </a>
-        <a class="btn btn--outline" href={whatsappLink(`Olá! Gostaria de saber mais sobre o ${s.name} (${price(s.price)}).`)} target="_blank" rel="noopener">
-          Tirar dúvidas
+        <button class="btn btn--primary" type="button" data-add={s.name} data-price={s.price} data-detail={s.details[0]} aria-label={`Add ${s.name} to your order`} data-magnetic>
+          <span data-add-label>{s.cta}</span> <Icon name="arrow" class="btn__arrow" />
+        </button>
+        <a class="btn btn--outline" href={whatsappLink(`Hi! I'd like to know more about the ${s.name} (${price(s.price)}).`)} target="_blank" rel="noopener">
+          Ask a question
         </a>
       </div>
     </div>

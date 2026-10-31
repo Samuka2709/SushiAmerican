@@ -1,26 +1,28 @@
-# Shiori Sushi — site
+# Sushi American — site
 
-Site de página única (Astro + GSAP + Lenis). Todo o HTML sai estático, com o cardápio em texto real.
+Single-page site (Astro + GSAP + Lenis). All HTML is static, with the menu as real text.
+The site is in English and prices are in US dollars.
 
-## Trocar de cliente
+## Switching clients
 
-Edite apenas `src/data/restaurant.ts`. Os valores marcados com `// DEMO` são de demonstração:
-nome, WhatsApp, endereço, horários, pratos, preços, textos e fotos.
+Edit only `src/data/restaurant.ts`. Values marked `// DEMO` are placeholder data:
+name, WhatsApp, address, hours, dishes, prices, copy and photos.
 
-- `google: null` esconde a seção de avaliações. Preencha só com dados reais.
-- Fotos: hoje são IDs de fotos gratuitas do Unsplash. Para usar fotos próprias, troque `src/lib/img.ts`.
+- `google: null` hides the reviews section. Only fill it with real data.
+- Currency and number formatting live in `src/lib/format.ts` (and `money` in `src/scripts/bag.ts`).
+- Photos: currently free Unsplash photo IDs. To use your own photos, change `src/lib/img.ts`.
 
-Depois de trocar nome, frase ou foto do hero, gere de novo a imagem de compartilhamento e o favicon:
+After changing the name, tagline or hero photo, regenerate the share image and favicon:
 
 ```
 npm run og
 ```
 
-## Comandos
+## Commands
 
 ```
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # gera dist/
-npm run preview  # serve dist/
+npm run build    # outputs dist/
+npm run preview  # serves dist/
 ```

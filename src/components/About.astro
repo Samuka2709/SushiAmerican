@@ -40,7 +40,7 @@ const a = r.about;
       {a.stats.map((s) => (
         <div class="stat" data-reveal="fade">
           <dt class="sr-only">{s.label}</dt>
-          <dd class="stat__value" data-count={s.value}>{s.value.toLocaleString('pt-BR')}{s.suffix}</dd>
+          <dd class="stat__value" data-count={s.value}>{s.value.toLocaleString('en-US')}{s.suffix}</dd>
           <dd class="stat__label" aria-hidden="true">{s.label}</dd>
         </div>
       ))}
