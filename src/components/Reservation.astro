@@ -6,11 +6,11 @@ import Icon from './Icon.astro';
 const res = r.reservation;
 const people = Array.from({ length: 11 }, (_, i) => i + 1);
 ---
-<section class="section section--alt" id="reservas" aria-labelledby="reservas-title">
+<section class="section section--alt" id="prenota" aria-labelledby="prenota-title">
   <div class="container reserve__grid">
     <div>
-      <SectionLabel num="05" text="Reservas" />
-      <h2 class="display h2 reveal-words reserve__title" id="reservas-title" data-split-auto>{res.title}</h2>
+      <SectionLabel num="05" text="Prenotazioni" />
+      <h2 class="display h2 reveal-words reserve__title" id="prenota-title" data-split-auto>{res.title}</h2>
       <p class="lead reserve__lead" data-reveal="fade">{res.text}</p>
       <Photo photo={res.photo} ratio={4 / 5} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 40vw, 100vw" class="reserve__media" />
     </div>
@@ -24,16 +24,16 @@ const people = Array.from({ length: 11 }, (_, i) => i + 1);
         </div>
 
         <div class="field field--half">
-          <label for="rs-phone">Telefone <span class="req" aria-hidden="true">*</span></label>
-          <input class="input" id="rs-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(73) 99999-9999" required aria-describedby="rs-phone-err" />
+          <label for="rs-phone">Telefono <span class="req" aria-hidden="true">*</span></label>
+          <input class="input" id="rs-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="333 123 4567" required aria-describedby="rs-phone-err" />
           <p class="field__error" id="rs-phone-err"></p>
         </div>
 
         <div class="field field--half">
-          <label for="rs-people">Pessoas <span class="req" aria-hidden="true">*</span></label>
+          <label for="rs-people">Persone <span class="req" aria-hidden="true">*</span></label>
           <select class="input" id="rs-people" name="people" required aria-describedby="rs-people-err">
-            {people.map((n) => <option value={String(n)} selected={n === 2}>{n} {n === 1 ? 'pessoa' : 'pessoas'}</option>)}
-            <option value="12+">12 ou mais</option>
+            {people.map((n) => <option value={String(n)} selected={n === 2}>{n} {n === 1 ? 'persona' : 'persone'}</option>)}
+            <option value="12+">12 o più</option>
           </select>
           <p class="field__error" id="rs-people-err"></p>
         </div>
@@ -46,28 +46,28 @@ const people = Array.from({ length: 11 }, (_, i) => i + 1);
         </div>
 
         <div class="field field--half">
-          <label for="rs-time">Horário <span class="req" aria-hidden="true">*</span></label>
+          <label for="rs-time">Orario <span class="req" aria-hidden="true">*</span></label>
           <select class="input" id="rs-time" name="time" required disabled aria-describedby="rs-time-err">
-            <option value="">Escolha a data primeiro</option>
+            <option value="">Scegli prima la data</option>
           </select>
           <p class="field__error" id="rs-time-err"></p>
         </div>
 
         <div class="field">
-          <label for="rs-notes">Observações</label>
-          <textarea class="input" id="rs-notes" name="notes" rows="3" placeholder="Aniversário, restrição alimentar, preferência pelo balcão..."></textarea>
+          <label for="rs-notes">Note</label>
+          <textarea class="input" id="rs-notes" name="notes" rows="3" placeholder="Compleanno, allergie, preferenza per il bancone..."></textarea>
         </div>
 
         <div class="form__submit">
           <p class="sr-only" role="status" aria-live="polite" data-form-status></p>
           <button class="btn btn--primary btn--block" type="submit">
-            <Icon name="whatsapp" class="btn__arrow" /> Enviar pedido de reserva
+            <Icon name="whatsapp" class="btn__arrow" /> Invia la richiesta di prenotazione
           </button>
           <p class="reserve__note">
             <Icon name="info" />
             <span>{res.note}</span>
           </p>
-          <p class="form__fineprint">Ao enviar, o WhatsApp abre com a mensagem pronta. Nada é confirmado automaticamente.</p>
+          <p class="form__fineprint">Si apre WhatsApp con il messaggio già pronto. Niente viene confermato in automatico.</p>
         </div>
       </form>
     </div>

@@ -11,14 +11,14 @@ const year = new Date().getFullYear();
         <p class="footer__tagline">{r.tagline}</p>
         <p class="footer__address">{fullAddress()}</p>
       </div>
-      <nav class="footer__col" aria-label="Rodapé">
-        <h2 class="label">Navegar</h2>
+      <nav class="footer__col" aria-label="Piè di pagina">
+        <h2 class="label">Esplora</h2>
         <ul>
           {r.nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
         </ul>
       </nav>
       <div class="footer__col">
-        <h2 class="label">Contato</h2>
+        <h2 class="label">Contatti</h2>
         <ul>
           <li><a href={whatsappLink(genericOrderMessage())} target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href={`tel:${r.contact.phoneHref}`}>{r.contact.phone}</a></li>
@@ -26,10 +26,10 @@ const year = new Date().getFullYear();
         </ul>
       </div>
       <div class="footer__col">
-        <h2 class="label">Reservas</h2>
+        <h2 class="label">Prenotazioni</h2>
         <ul>
-          <li><a href="#reservas">Reservar uma mesa</a></li>
-          <li><a href="#assinatura">Omakase no balcão</a></li>
+          <li><a href="#prenota">Prenota un tavolo</a></li>
+          <li><a href="#all-you-can-eat">All you can eat</a></li>
         </ul>
       </div>
     </div>
@@ -37,8 +37,8 @@ const year = new Date().getFullYear();
     <p class="footer__name" aria-hidden="true">{r.name}</p>
 
     <div class="footer__bottom">
-      <span>© {year} {r.footer.copyright}. Todos os direitos reservados.</span>
-      <a href="#topo" class="link-line" data-scroll-link>Voltar ao topo</a>
+      <span>© {year} {r.footer.copyright}. Tutti i diritti riservati.</span>
+      <a href="#inizio" class="link-line" data-scroll-link>Torna su</a>
     </div>
   </div>
 </footer>

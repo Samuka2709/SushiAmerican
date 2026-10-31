@@ -3,23 +3,23 @@ import { whatsappLink, genericOrderMessage } from '../lib/format';
 import Icon from './Icon.astro';
 const wa = whatsappLink(genericOrderMessage());
 ---
-<div class="mobile-bar" data-mobile-bar role="region" aria-label="Ações rápidas">
+<div class="mobile-bar" data-mobile-bar role="region" aria-label="Azioni rapide">
   <a class="btn btn--primary" href={wa} target="_blank" data-order-generic rel="noopener">
-    <Icon name="whatsapp" class="btn__arrow" /> Pedir no WhatsApp
+    <Icon name="whatsapp" class="btn__arrow" /> Ordina su WhatsApp
   </a>
   <button class="btn btn--primary bag-open" type="button" data-bag-open hidden>
-    <Icon name="bag" class="btn__arrow" /> Ver pedido <span class="bag-open__count" data-bag-count>0</span>
+    <Icon name="bag" class="btn__arrow" /> Vedi ordine <span class="bag-open__count" data-bag-count>0</span>
   </button>
-  <a class="btn btn--outline" href="#reservas" data-scroll-link>Reservar</a>
+  <a class="btn btn--outline" href="#prenota" data-scroll-link>Prenota</a>
 </div>
 
-<a class="wa-float" href={wa} target="_blank" data-order-generic rel="noopener" data-wa-float aria-label="Pedir pelo WhatsApp">
+<a class="wa-float" href={wa} target="_blank" data-order-generic rel="noopener" data-wa-float aria-label="Ordina su WhatsApp">
   <Icon name="whatsapp" />
 </a>
 
 <button class="bag-float" type="button" data-bag-open data-bag-float hidden>
   <Icon name="bag" />
-  <span>Ver pedido</span>
+  <span>Vedi ordine</span>
   <span class="bag-float__total" data-bag-float-total></span>
   <span class="bag-open__count" data-bag-count>0</span>
 </button>

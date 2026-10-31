@@ -2,7 +2,7 @@
 import { restaurant as r } from '../data/restaurant';
 const items = r.marquee;
 ---
-<div class="marquee" role="region" aria-label="Destaques da casa">
+<div class="marquee" role="region" aria-label="I punti forti della casa">
   <p class="sr-only">{items.join('. ')}.</p>
   <div class="marquee__track" aria-hidden="true">
     {[0, 1].map(() => (

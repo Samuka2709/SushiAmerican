@@ -5,7 +5,8 @@ import { initBag } from './bag';
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Hours = { open: string; close: string } | null;
+type Shift = { open: string; close: string };
+type Hours = Shift[] | null;
 interface SiteData {
   hours: Hours[];
   timezone: string;
@@ -34,7 +35,7 @@ if (!reduced) {
 }
 
 function scrollToTarget(target: HTMLElement) {
-  if (lenis) lenis.scrollTo(target, { offset: target.id === 'topo' ? 0 : -16 });
+  if (lenis) lenis.scrollTo(target, { offset: target.id === 'inizio' ? 0 : -16 });
   else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
   // leva o foco do teclado junto com a rolagem
   if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
@@ -56,16 +57,14 @@ document.addEventListener('click', (e) => {
 /* --------------------------------------------------------------------------
    Horário (sempre no fuso do restaurante)
    -------------------------------------------------------------------------- */
-const DAY_NAMES = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+const DAY_NAMES = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'];
 const toMin = (t: string) => {
   const [h, m] = t.split(':').map(Number);
   return h * 60 + m;
 };
-const hourLabel = (t: string) => {
-  const [h, m] = t.split(':');
-  if (t === '24:00') return 'meia-noite';
-  return m === '00' ? `${Number(h)}h` : `${Number(h)}h${m}`;
-};
+const hourLabel = (t: string) => (t === '24:00' ? 'mezzanotte' : t);
+/** "alle 19:00", "a mezzanotte" */
+const atHour = (t: string) => (t === '24:00' ? 'a mezzanotte' : `alle ${t}`);
 
 function nowAtRestaurant() {
   const parts = new Intl.DateTimeFormat('en-CA', {
@@ -89,16 +88,17 @@ function nowAtRestaurant() {
 
 function openStatus() {
   const now = nowAtRestaurant();
-  const today = data.hours[now.day];
-  if (today && now.minutes < toMin(today.open)) return { open: false, text: `Abre hoje às ${hourLabel(today.open)}` };
-  if (today && now.minutes < toMin(today.close))
-    return { open: true, text: `Aberto hoje até ${today.close === '24:00' ? 'meia-noite' : hourLabel(today.close)}` };
+  const today = data.hours[now.day] ?? [];
+  const current = today.find((s) => now.minutes >= toMin(s.open) && now.minutes < toMin(s.close));
+  if (current) return { open: true, text: `Aperto ora · fino ${atHour(current.close)}` };
+  const later = today.find((s) => now.minutes < toMin(s.open));
+  if (later) return { open: false, text: `Chiuso ora · apre oggi ${atHour(later.open)}` };
   for (let i = 1; i <= 7; i++) {
     const d = (now.day + i) % 7;
     const h = data.hours[d];
-    if (h) return { open: false, text: `Fechado agora · abre ${i === 1 ? 'amanhã' : DAY_NAMES[d]} às ${hourLabel(h.open)}` };
+    if (h?.length) return { open: false, text: `Chiuso ora · apre ${i === 1 ? 'domani' : DAY_NAMES[d]} ${atHour(h[0].open)}` };
   }
-  return { open: false, text: 'Fechado' };
+  return { open: false, text: 'Chiuso' };
 }
 
 function initHours() {
@@ -111,7 +111,7 @@ function initHours() {
   const row = $(`[data-hours] tr[data-day="${now.day}"]`);
   if (row) {
     row.classList.add('is-today');
-    row.querySelector('th')!.insertAdjacentHTML('beforeend', '<span class="today-badge">Hoje</span>');
+    row.querySelector('th')!.insertAdjacentHTML('beforeend', '<span class="today-badge">Oggi</span>');
   }
 }
 initHours();
@@ -283,7 +283,7 @@ function setupScrollReveals() {
       duration: 1.8,
       ease: 'power2.out',
       scrollTrigger: { trigger: el, start: 'top 90%' },
-      onUpdate: () => (el.textContent = Math.round(obj.v).toLocaleString('pt-BR')),
+      onUpdate: () => (el.textContent = Math.round(obj.v).toLocaleString('it-IT')),
     });
   });
 
@@ -443,7 +443,7 @@ if (form) {
   };
   const fmtDate = (iso: string) => {
     const [y, m, d] = iso.split('-').map(Number);
-    const wd = new Date(y, m - 1, d).toLocaleDateString('pt-BR', { weekday: 'long' });
+    const wd = new Date(y, m - 1, d).toLocaleDateString('it-IT', { weekday: 'long' });
     return `${wd}, ${String(d).padStart(2, '0')}/${String(m).padStart(2, '0')}/${y}`;
   };
 
@@ -453,44 +453,46 @@ if (form) {
     hint.textContent = '';
     if (!iso) {
       f.time.disabled = true;
-      f.time.add(new Option('Escolha a data primeiro', ''));
+      f.time.add(new Option('Scegli prima la data', ''));
       return;
     }
     const h = data.hours[weekdayOf(iso)];
-    if (!h) {
+    if (!h?.length) {
       f.time.disabled = true;
-      f.time.add(new Option('Fechado neste dia', ''));
-      hint.textContent = `Não abrimos às ${DAY_NAMES[weekdayOf(iso)]}s. Escolha outra data.`;
+      f.time.add(new Option('Chiuso in questo giorno', ''));
+      hint.textContent = `Il ${DAY_NAMES[weekdayOf(iso)]} siamo chiusi. Scegli un’altra data.`;
       return;
     }
     const { slotMinutes, lastSlotBeforeClose } = data.reservation;
     const minNow = iso === today.iso ? nowAtRestaurant().minutes + 30 : -1;
     const slots: string[] = [];
-    for (let t = toMin(h.open); t <= toMin(h.close) - lastSlotBeforeClose; t += slotMinutes) {
-      if (t >= minNow) slots.push(`${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`);
+    // um bloco de horários por turno (pranzo e cena)
+    for (const s of h) {
+      for (let t = toMin(s.open); t <= toMin(s.close) - lastSlotBeforeClose; t += slotMinutes) {
+        if (t >= minNow) slots.push(`${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`);
+      }
     }
     if (!slots.length) {
       f.time.disabled = true;
-      f.time.add(new Option('Sem horários hoje', ''));
-      hint.textContent = 'Os horários de hoje já passaram. Escolha outra data.';
+      f.time.add(new Option('Nessun orario oggi', ''));
+      hint.textContent = 'Gli orari di oggi sono già passati. Scegli un’altra data.';
       return;
     }
     f.time.disabled = false;
-    f.time.add(new Option('Selecione', ''));
-    slots.forEach((s) => f.time.add(new Option(s.replace(':', 'h'), s)));
+    f.time.add(new Option('Seleziona', ''));
+    slots.forEach((s) => f.time.add(new Option(s, s)));
   }
   f.date.addEventListener('change', () => {
     fillTimes();
     setError(f.date, '');
   });
 
-  // Máscara leve de telefone: (73) 99999-9999
+  // Celular italiano: 333 123 4567 (fixos e números com +39 ficam como digitados)
   f.phone.addEventListener('input', () => {
-    const d = f.phone.value.replace(/\D/g, '').slice(0, 11);
-    let out = d;
-    if (d.length > 2) out = `(${d.slice(0, 2)}) ${d.slice(2)}`;
-    if (d.length > 7) out = `(${d.slice(0, 2)}) ${d.slice(2, d.length - 4)}-${d.slice(-4)}`;
-    f.phone.value = out;
+    const d = f.phone.value.replace(/\D/g, '');
+    if (!f.phone.value.trim().startsWith('+') && d.startsWith('3') && d.length <= 10) {
+      f.phone.value = [d.slice(0, 3), d.slice(3, 6), d.slice(6)].filter(Boolean).join(' ');
+    }
   });
 
   function setError(el: HTMLElement, msg: string) {
@@ -502,14 +504,14 @@ if (form) {
 
   function validate() {
     const errors: [HTMLElement, string][] = [];
-    if (f.name.value.trim().length < 2) errors.push([f.name, 'Informe seu nome.']);
+    if (f.name.value.trim().length < 2) errors.push([f.name, 'Inserisci il tuo nome.']);
     const digits = f.phone.value.replace(/\D/g, '');
-    if (digits.length < 10 || digits.length > 11) errors.push([f.phone, 'Informe um telefone com DDD, por exemplo (73) 99999-9999.']);
-    if (!f.date.value) errors.push([f.date, 'Escolha a data.']);
-    else if (f.date.value < today.iso) errors.push([f.date, 'Escolha uma data a partir de hoje.']);
-    else if (!data.hours[weekdayOf(f.date.value)]) errors.push([f.date, 'Estamos fechados neste dia. Escolha outra data.']);
-    if (f.date.value && !f.time.value && !f.time.disabled) errors.push([f.time, 'Escolha o horário.']);
-    else if (f.date.value && f.time.disabled && data.hours[weekdayOf(f.date.value)]) errors.push([f.date, 'Não há horários livres nesta data. Escolha outra.']);
+    if (digits.length < 9 || digits.length > 13) errors.push([f.phone, 'Inserisci un numero di telefono valido, per esempio 333 123 4567.']);
+    if (!f.date.value) errors.push([f.date, 'Scegli la data.']);
+    else if (f.date.value < today.iso) errors.push([f.date, 'Scegli una data a partire da oggi.']);
+    else if (!data.hours[weekdayOf(f.date.value)]?.length) errors.push([f.date, 'In questo giorno siamo chiusi. Scegli un’altra data.']);
+    if (f.date.value && !f.time.value && !f.time.disabled) errors.push([f.time, 'Scegli l’orario.']);
+    else if (f.date.value && f.time.disabled && data.hours[weekdayOf(f.date.value)]?.length) errors.push([f.date, 'Non ci sono orari liberi in questa data. Scegline un’altra.']);
     [f.name, f.phone, f.date, f.time].forEach((el) => setError(el, ''));
     errors.forEach(([el, msg]) => setError(el, msg));
     return errors;
@@ -525,23 +527,23 @@ if (form) {
     e.preventDefault();
     const errors = validate();
     if (errors.length) {
-      status.textContent = `Revise ${errors.length === 1 ? 'o campo destacado' : `os ${errors.length} campos destacados`}.`;
+      status.textContent = `Controlla ${errors.length === 1 ? 'il campo evidenziato' : `i ${errors.length} campi evidenziati`}.`;
       errors[0][0].focus();
       return;
     }
-    const people = f.people.value === '12+' ? '12 ou mais' : f.people.value;
+    const people = f.people.value === '12+' ? '12 o più' : f.people.value;
     const lines = [
-      `Olá! Gostaria de reservar uma mesa no ${data.name}.`,
+      `Buongiorno! Vorrei prenotare un tavolo da ${data.name}.`,
       '',
       `Nome: ${f.name.value.trim()}`,
-      `Telefone: ${f.phone.value.trim()}`,
+      `Telefono: ${f.phone.value.trim()}`,
       `Data: ${fmtDate(f.date.value)}`,
-      `Horário: ${f.time.value.replace(':', 'h')}`,
-      `Pessoas: ${people}`,
+      `Orario: ${f.time.value}`,
+      `Persone: ${people}`,
     ];
-    if (f.notes.value.trim()) lines.push(`Observações: ${f.notes.value.trim()}`);
+    if (f.notes.value.trim()) lines.push(`Note: ${f.notes.value.trim()}`);
     const url = `https://wa.me/${data.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
-    status.textContent = 'Abrindo o WhatsApp com a sua mensagem. A reserva será confirmada pela nossa equipe.';
+    status.textContent = 'Sto aprendo WhatsApp con il tuo messaggio. La prenotazione verrà confermata dal nostro staff.';
     // com 'noopener' o window.open sempre devolve null; corta o vínculo depois
     const win = window.open(url, '_blank');
     if (win) win.opener = null;

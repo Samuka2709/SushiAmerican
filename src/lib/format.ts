@@ -1,35 +1,36 @@
-import { restaurant } from '../data/restaurant';
+import { restaurant, type Shift } from '../data/restaurant';
 
-const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+const eur = (v: number) =>
+  new Intl.NumberFormat('it-IT', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: Number.isInteger(v) ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(v);
 
-export const price = (v: number) => brl.format(v).replace(/ /g, ' ');
+/** 27.9 → "27,90 €", com espaço que não quebra */
+export const price = (v: number) => eur(v).replace(/ /g, ' ');
 
 export function whatsappLink(message?: string) {
   const base = `https://wa.me/${restaurant.contact.whatsapp}`;
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
-export const genericOrderMessage = () => `Olá! Gostaria de fazer um pedido no ${restaurant.fullName}.`;
+export const genericOrderMessage = () => `Buongiorno! Vorrei fare un ordine da ${restaurant.fullName}.`;
 
-export const DAYS = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+export const DAYS = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
 
-/** "18:00" → "18h", "18:30" → "18h30" */
-export function hourLabel(t: string) {
-  const [h, m] = t.split(':');
-  const hh = Number(h) % 24;
-  return m === '00' ? `${hh}h` : `${hh}h${m}`;
-}
+/** "19:00" → "19:00", "24:00" → "24:00" (formato italiano, 24 horas) */
+export const hourLabel = (t: string) => t;
 
 export const instagramUrl = () => `https://instagram.com/${restaurant.contact.instagram}`;
 
 export function fullAddress() {
   const a = restaurant.contact.address;
-  return `${a.street} — ${a.district}, ${a.city} — ${a.state}`;
+  return `${a.street}, ${a.zip} ${a.city} ${a.state}`;
 }
 
-/** "18h às 23h" ou "18h à meia-noite" */
-export function rangeLabel(h: { open: string; close: string }) {
-  return h.close === '24:00' || h.close === '00:00'
-    ? `${hourLabel(h.open)} à meia-noite`
-    : `${hourLabel(h.open)} às ${hourLabel(h.close)}`;
+/** "12:00–15:00 · 19:00–23:30" */
+export function rangeLabel(shifts: Shift[]) {
+  return shifts.map((s) => `${s.open}–${s.close}`).join(' · ');
 }
