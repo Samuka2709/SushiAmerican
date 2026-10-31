@@ -7,28 +7,28 @@ const c = r.contact;
 // Ordem de exibição: segunda a domingo
 const order = [1, 2, 3, 4, 5, 6, 0];
 ---
-<section class="section" id="contato" aria-labelledby="contato-title">
+<section class="section" id="visit" aria-labelledby="visit-title">
   <div class="container visit__grid">
     <div>
-      <SectionLabel num="06" text="Visite-nos" />
-      <h2 class="display h2 reveal-words visit__title" id="contato-title" data-split-auto>{r.sections.visit.title}</h2>
+      <SectionLabel num="06" text="Visit us" />
+      <h2 class="display h2 reveal-words visit__title" id="visit-title" data-split-auto>{r.sections.visit.title}</h2>
 
       <div class="visit__block visit__block--first" data-reveal="fade">
-        <h3 class="label">Endereço</h3>
-        <address class="visit__address">{c.address.street}<br />{c.address.district}, {c.address.city} — {c.address.state}</address>
+        <h3 class="label">Address</h3>
+        <address class="visit__address">{c.address.street}<br />{c.address.city}, {c.address.state} {c.address.zip}</address>
       </div>
 
       <div class="visit__block" data-reveal="fade">
-        <h3 class="label">Horários</h3>
+        <h3 class="label">Hours</h3>
         <table class="hours" data-hours>
-          <caption class="sr-only">Horário de funcionamento</caption>
+          <caption class="sr-only">Opening hours</caption>
           <tbody>
             {order.map((d) => {
               const h = r.hours[d];
               return (
                 <tr data-day={d}>
                   <th scope="row">{DAYS[d]}</th>
-                  <td>{h ? rangeLabel(h) : 'Fechado'}</td>
+                  <td>{h ? rangeLabel(h) : 'Closed'}</td>
                 </tr>
               );
             })}
@@ -37,7 +37,7 @@ const order = [1, 2, 3, 4, 5, 6, 0];
       </div>
 
       <div class="visit__block" data-reveal="fade">
-        <h3 class="label">Contato</h3>
+        <h3 class="label">Contact</h3>
         <div class="visit__links">
           <a class="link-line" href={`tel:${c.phoneHref}`}><Icon name="phone" class="btn__arrow" /> {c.phone}</a>
           <a class="link-line" href={instagramUrl()} target="_blank" rel="noopener"><Icon name="instagram" class="btn__arrow" /> @{c.instagram}</a>
@@ -45,11 +45,11 @@ const order = [1, 2, 3, 4, 5, 6, 0];
       </div>
 
       <div class="visit__ctas" data-reveal="fade">
-        <a class="btn btn--primary" href={whatsappLink(`Olá! Tenho uma dúvida sobre o ${r.fullName}.`)} target="_blank" rel="noopener">
-          <Icon name="whatsapp" class="btn__arrow" /> Falar no WhatsApp
+        <a class="btn btn--primary" href={whatsappLink(`Hi! I have a question about ${r.fullName}.`)} target="_blank" rel="noopener">
+          <Icon name="whatsapp" class="btn__arrow" /> Message us on WhatsApp
         </a>
         <a class="btn btn--outline" href={c.mapsUrl} target="_blank" rel="noopener">
-          Como chegar <Icon name="arrow" class="btn__arrow" />
+          Get directions <Icon name="arrow" class="btn__arrow" />
         </a>
       </div>
     </div>
@@ -57,7 +57,7 @@ const order = [1, 2, 3, 4, 5, 6, 0];
     <div class="map" data-reveal="fade">
       <iframe
         src={c.mapsEmbed}
-        title={`Mapa: ${fullAddress()}`}
+        title={`Map: ${fullAddress()}`}
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         allowfullscreen

@@ -11,7 +11,7 @@
  * para apontar para as fotos próprias do restaurante.
  */
 
-export type Tag = 'Mais pedido' | 'Novo' | 'Picante' | 'Vegetariano';
+export type Tag = 'Popular' | 'New' | 'Spicy' | 'Vegetarian';
 
 export interface Photo {
   /** ID da foto no Unsplash (parte depois de "photo-") */
@@ -44,49 +44,47 @@ export type Hours = { open: string; close: string } | null;
 export const restaurant = {
   name: 'Shiori', // DEMO
   fullName: 'Shiori Sushi', // DEMO
-  tagline: 'Peixe do dia, arroz da casa, mão firme.', // DEMO
-  city: 'Ilhéus', // DEMO
-  neighborhood: 'Pontal', // DEMO
+  tagline: 'Fish of the day, house rice, a steady hand.', // DEMO
+  city: 'Portland', // DEMO
+  neighborhood: 'Pearl District', // DEMO
   /** Domínio próprio do cliente. Vazio = usa o endereço de produção da Vercel. */
-  siteUrl: '', // DEMO (ex.: 'https://shiorisushi.com.br')
-  timezone: 'America/Bahia', // DEMO
+  siteUrl: '', // DEMO (ex.: 'https://shiorisushi.com')
+  timezone: 'America/Los_Angeles', // DEMO
   foundedYear: 2014, // DEMO
   priceRange: '$$$',
 
   seo: {
-    title: 'Shiori Sushi — Sushi em Ilhéus', // DEMO
+    title: 'Shiori Sushi — Sushi Bar in Portland, OR', // DEMO
     description:
-      'Sushi de balcão no Pontal, em Ilhéus. Peixe fresco todos os dias, arroz temperado na casa e pedidos pelo WhatsApp. Reserve sua mesa.', // DEMO
+      'Counter-style sushi in the Pearl District, Portland. Fish delivered every morning, rice seasoned in house, and online ordering. Book your seat at the counter.', // DEMO
   },
 
   contact: {
-    whatsapp: '5573998258544', // DEMO (somente números, com DDI e DDD)
-    phone: '+55 73 3231-0000', // DEMO
-    phoneHref: '+557332310000', // DEMO
+    whatsapp: '5573998258544', // DEMO (somente números, com código do país e de área)
+    phone: '(503) 555-0148', // DEMO
+    phoneHref: '+15035550148', // DEMO
     instagram: 'shiorisushi', // DEMO (sem @)
     address: {
-      street: 'Av. Lomanto Júnior, 1200', // DEMO
-      district: 'Pontal', // DEMO
-      city: 'Ilhéus', // DEMO
-      state: 'BA', // DEMO
-      zip: '45654-000', // DEMO
-      country: 'BR',
+      street: '1120 NW Lovejoy St', // DEMO
+      district: 'Pearl District', // DEMO
+      city: 'Portland', // DEMO
+      state: 'OR', // DEMO
+      zip: '97209', // DEMO
+      country: 'US',
     },
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=Av.+Lomanto+J%C3%BAnior%2C+1200+-+Pontal%2C+Ilh%C3%A9us+-+BA', // DEMO
-    mapsEmbed:
-      'https://www.google.com/maps?q=Av.+Lomanto+J%C3%BAnior,+1200+-+Pontal,+Ilh%C3%A9us+-+BA&output=embed', // DEMO
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=1120+NW+Lovejoy+St%2C+Portland%2C+OR+97209', // DEMO
+    mapsEmbed: 'https://www.google.com/maps?q=1120+NW+Lovejoy+St,+Portland,+OR+97209&output=embed', // DEMO
   },
 
   /** Índice 0 = domingo */
   hours: [
-    { open: '12:00', close: '22:00' }, // DEMO domingo
+    { open: '12:00', close: '21:00' }, // DEMO domingo
     null, // DEMO segunda (fechado)
-    { open: '18:00', close: '23:00' }, // DEMO terça
-    { open: '18:00', close: '23:00' }, // DEMO quarta
-    { open: '18:00', close: '23:00' }, // DEMO quinta
-    { open: '18:00', close: '24:00' }, // DEMO sexta
-    { open: '18:00', close: '24:00' }, // DEMO sábado
+    { open: '17:00', close: '22:00' }, // DEMO terça
+    { open: '17:00', close: '22:00' }, // DEMO quarta
+    { open: '17:00', close: '22:00' }, // DEMO quinta
+    { open: '17:00', close: '23:00' }, // DEMO sexta
+    { open: '17:00', close: '23:00' }, // DEMO sábado
   ] as Hours[],
 
   /** Avaliações reais do Google. Deixe null para esconder a seção de prova social. */
@@ -98,370 +96,370 @@ export const restaurant = {
   },
 
   nav: [
-    { label: 'Sobre', href: '#sobre' },
-    { label: 'Cardápio', href: '#cardapio' },
+    { label: 'About', href: '#about' },
+    { label: 'Menu', href: '#menu' },
     { label: 'Combos', href: '#combos' },
-    { label: 'Galeria', href: '#galeria' },
-    { label: 'Reservas', href: '#reservas' },
-    { label: 'Contato', href: '#contato' },
+    { label: 'Gallery', href: '#gallery' },
+    { label: 'Reservations', href: '#reservations' },
+    { label: 'Visit', href: '#visit' },
   ],
 
   hero: {
     photo: {
       id: '1710945301326-d60727e4833a',
-      alt: 'Niguiri de salmão erguido por hashis contra fundo preto, com luz lateral sobre o peixe',
+      alt: 'Salmon nigiri held up with chopsticks against a black background, side light on the fish',
     },
   },
 
-  marquee: ['Peixe fresco todos os dias', 'Arroz temperado na casa', 'Feito à mão', 'Balcão de oito lugares'], // DEMO
+  marquee: ['Fresh fish every morning', 'Rice seasoned in house', 'Made by hand', 'Eight seats at the counter'], // DEMO
 
   about: {
-    label: 'Nossa história',
-    title: 'Um balcão pequeno, um peixe por vez.', // DEMO
+    label: 'Our story',
+    title: 'A small counter, one fish at a time.', // DEMO
     paragraphs: [
-      'O Shiori começou em 2014 como um balcão de oito lugares no Pontal. A ideia continua a mesma: comprar pouco, comprar cedo e servir o peixe no mesmo dia em que ele chega.', // DEMO
-      'Cada peça é montada na hora, na frente de quem vai comer. O arroz é temperado com vinagre que preparamos aqui, em pequenas levas, e servido morno, como deve ser.', // DEMO
+      'Shiori opened in 2014 as an eight-seat counter in the Pearl District. The idea has not changed: buy a little, buy early, and serve the fish the same day it arrives.', // DEMO
+      'Every piece is made to order, right in front of the guest who will eat it. Our rice is seasoned with vinegar we make here in small batches, and served warm, the way it should be.', // DEMO
     ],
     photos: [
       {
         id: '1711991022613-63df8929f311',
-        alt: 'Mãos do itamae fatiando um lombo de salmão com faca yanagiba sobre tábua de madeira',
+        alt: 'Sushi chef’s hands slicing a salmon loin with a yanagiba knife on a wooden board',
       },
       {
         id: '1681270496598-13c5365730c8',
-        alt: 'Chef finalizando um prato com hashis longos, em close sobre o balcão de madeira',
+        alt: 'Chef finishing a plate with long chopsticks, close up over the wooden counter',
       },
     ] as Photo[],
     pillars: [
-      { title: 'Origem do peixe', text: 'Salmão, atum e peixe branco recebidos toda manhã, de fornecedores que visitamos.' }, // DEMO
-      { title: 'Arroz', text: 'Grão japonês, vinagre da casa e temperatura de mão. É metade de cada peça.' }, // DEMO
-      { title: 'Técnica', text: 'Cortes feitos na hora, sem pressa e sem atalhos, por quem treinou anos para isso.' }, // DEMO
+      { title: 'Sourcing', text: 'Salmon, tuna and white fish delivered every morning from suppliers we visit ourselves.' }, // DEMO
+      { title: 'Rice', text: 'Japanese short-grain rice, house vinegar, served at body temperature. It is half of every piece.' }, // DEMO
+      { title: 'Technique', text: 'Every cut made to order, no rushing and no shortcuts, by chefs who trained for years to do it.' }, // DEMO
     ],
     stats: [
-      { value: 12, suffix: '', label: 'anos de balcão' }, // DEMO
-      { value: 900, suffix: '', label: 'peças montadas por noite' }, // DEMO
-      { value: 8, suffix: '', label: 'lugares no balcão' }, // DEMO
+      { value: 12, suffix: '', label: 'years behind the counter' }, // DEMO
+      { value: 900, suffix: '', label: 'pieces made every night' }, // DEMO
+      { value: 8, suffix: '', label: 'seats at the counter' }, // DEMO
     ],
   },
 
   /** Pedido montado na sacola do site e enviado como mensagem de WhatsApp */
   order: {
-    payment: ['Pix', 'Cartão na entrega', 'Dinheiro'], // DEMO
-    deliveryNote: 'A taxa de entrega depende do bairro e é confirmada no WhatsApp.', // DEMO
+    payment: ['Credit or debit card', 'Apple Pay / Google Pay', 'Cash'], // DEMO
+    deliveryNote: 'Delivery fee depends on distance and is confirmed by message.', // DEMO
   },
 
   /** Títulos e textos curtos de cada seção */
   sections: {
-    heroEyebrow: 'Sushi de balcão', // DEMO
+    heroEyebrow: 'Sushi counter', // DEMO
     menu: {
-      title: 'O que sai do balcão hoje.', // DEMO
-      lead: 'Preços por porção. Monte seu pedido aqui e envie tudo de uma vez pelo WhatsApp.',
+      title: 'Fresh from the counter today.', // DEMO
+      lead: 'Prices per order. Build your order here and send it all at once on WhatsApp.',
     },
     combos: {
-      title: 'Para dividir à mesa.', // DEMO
-      lead: 'Combinados fechados, montados na hora para retirada ou entrega.', // DEMO
+      title: 'Made for sharing.', // DEMO
+      lead: 'Set platters, made to order for pickup or delivery.', // DEMO
     },
-    gallery: { title: 'De perto, sem pressa.' }, // DEMO
-    visit: { title: 'No Pontal, perto do mar.' }, // DEMO
+    gallery: { title: 'Up close, unhurried.' }, // DEMO
+    visit: { title: 'In the Pearl, steps from the park.' }, // DEMO
   },
 
   signature: {
-    label: 'Assinatura do chef',
-    priceNote: 'por pessoa', // DEMO
-    cta: 'Reservar o omakase',
+    label: 'Chef’s signature',
+    priceNote: 'per person', // DEMO
+    cta: 'Book the omakase',
     kanji: '鮨',
-    name: 'Omakase do balcão', // DEMO
+    name: 'Counter Omakase', // DEMO
     description:
-      'Dezesseis tempos escolhidos pelo itamae conforme o peixe do dia: niguiris, sashimis e uma sobremesa. Servido no balcão, peça por peça.', // DEMO
-    details: ['16 tempos', 'Somente no balcão', 'Reserva antecipada'], // DEMO
-    price: 289, // DEMO
+      'Sixteen courses chosen by the chef from the day’s catch: nigiri, sashimi and a dessert. Served at the counter, one piece at a time.', // DEMO
+    details: ['16 courses', 'Counter seating only', 'Reservation required'], // DEMO
+    price: 165, // DEMO
     photo: {
       id: '1635451778386-e5778e66f61e',
-      alt: 'Niguiri único sobre prato redondo de pedra escura, iluminado de lado em um balcão de madeira',
+      alt: 'A single nigiri on a round dark stone plate, side lit on a wooden counter',
     },
     detail: {
       id: '1763943431214-275e64002f90',
-      alt: 'Detalhe de niguiris de atum com gengibre e wasabi sobre prancha de madeira clara',
+      alt: 'Close up of tuna nigiri with ginger and wasabi on a light wooden board',
     },
   },
 
   menu: [
     {
-      id: 'combinados',
-      label: 'Combinados',
+      id: 'platters',
+      label: 'Platters',
       featured: [
         {
-          name: 'Combinado Kuro',
-          description: 'Niguiris, uramakis e hossomakis do dia, montados pelo chef.',
-          pieces: '16 peças',
-          price: 89, // DEMO
-          photo: { id: '1617196034796-73dfa7b1fd56', alt: 'Fileira de niguiris variados sobre placa quadrada de ardósia preta' },
+          name: 'Kuro Platter',
+          description: 'Chef’s selection of nigiri, uramaki and hosomaki of the day.',
+          pieces: '16 pcs',
+          price: 42, // DEMO
+          photo: { id: '1617196034796-73dfa7b1fd56', alt: 'Row of assorted nigiri on a square black slate plate' },
         },
         {
-          name: 'Combinado Salmão Selado',
-          description: 'Niguiris de salmão maçaricado e uramakis com gergelim.',
-          pieces: '18 peças',
-          price: 98, // DEMO
-          tags: ['Mais pedido'],
-          photo: { id: '1583623025817-d180a2221d0a', alt: 'Niguiris de salmão selado com gergelim ao lado de uramakis e molho shoyu sobre pedra escura' },
+          name: 'Seared Salmon Platter',
+          description: 'Torched salmon nigiri and sesame uramaki.',
+          pieces: '18 pcs',
+          price: 48, // DEMO
+          tags: ['Popular'],
+          photo: { id: '1583623025817-d180a2221d0a', alt: 'Seared salmon nigiri with sesame next to uramaki and soy sauce on dark stone' },
         },
         {
-          name: 'Combinado Gunkan',
-          description: 'Gunkans de ovas, tamago e niguiris de peixe branco.',
-          pieces: '14 peças',
-          price: 92, // DEMO
-          tags: ['Novo'],
-          photo: { id: '1514190051997-0f6f39ca5cde', alt: 'Gunkans de ovas de peixe e niguiris de tamago enfileirados sobre folha verde' },
+          name: 'Gunkan Platter',
+          description: 'Roe gunkan, tamago and white fish nigiri.',
+          pieces: '14 pcs',
+          price: 46, // DEMO
+          tags: ['New'],
+          photo: { id: '1514190051997-0f6f39ca5cde', alt: 'Fish roe gunkan and tamago nigiri lined up on a green leaf' },
         },
       ],
       more: [
-        { name: 'Combinado Vegetariano', description: 'Pepino, abacate, shiitake e tamago.', pieces: '16 peças', price: 69, tags: ['Vegetariano'] }, // DEMO
-        { name: 'Combinado Kids', description: 'Hossomakis e uramakis sem cru.', pieces: '12 peças', price: 54 }, // DEMO
+        { name: 'Vegetarian Platter', description: 'Cucumber, avocado, shiitake and tamago.', pieces: '16 pcs', price: 32, tags: ['Vegetarian'] }, // DEMO
+        { name: 'Kids Platter', description: 'Hosomaki and uramaki, nothing raw.', pieces: '12 pcs', price: 22 }, // DEMO
       ],
     },
     {
-      id: 'sashimis',
-      label: 'Sashimis',
+      id: 'sashimi',
+      label: 'Sashimi',
       featured: [
         {
-          name: 'Sashimi de salmão',
-          description: 'Corte grosso, servido com wasabi ralado na hora.',
-          pieces: '10 fatias',
-          price: 62, // DEMO
-          tags: ['Mais pedido'],
-          photo: { id: '1675870791718-a12568cfef43', alt: 'Fatia espessa de sashimi de salmão erguida por hashis contra fundo escuro' },
+          name: 'Salmon Sashimi',
+          description: 'Thick cut, served with freshly grated wasabi.',
+          pieces: '10 slices',
+          price: 28, // DEMO
+          tags: ['Popular'],
+          photo: { id: '1675870791718-a12568cfef43', alt: 'Thick slice of salmon sashimi held up with chopsticks against a dark background' },
         },
         {
           name: 'Moriawase',
-          description: 'Salmão, atum, peixe branco e camarão do dia.',
-          pieces: '15 fatias',
-          price: 96, // DEMO
-          photo: { id: '1772285283419-b34f42b4a4df', alt: 'Seleção de sashimis de salmão, atum e peixe branco arrumada em prato escuro' },
-        },
-        {
-          name: 'Trio da casa',
-          description: 'Salmão, atum e camarão, com niguiri de cortesia.',
-          pieces: '12 fatias',
-          price: 78, // DEMO
-          photo: { id: '1791386809533-5c2e79e34665', alt: 'Sashimis e niguiris de salmão, atum e camarão sobre prato preto' },
-        },
-      ],
-      more: [
-        { name: 'Sashimi de peixe branco', description: 'Com ponzu cítrico e cebolinha.', pieces: '10 fatias', price: 58 }, // DEMO
-        { name: 'Sashimi de atum', description: 'Atum vermelho em corte retangular.', pieces: '8 fatias', price: 72 }, // DEMO
-      ],
-    },
-    {
-      id: 'niguiris',
-      label: 'Niguiris',
-      featured: [
-        {
-          name: 'Niguiri de salmão',
-          description: 'Arroz morno e salmão em corte diagonal.',
-          pieces: '2 peças',
-          price: 22, // DEMO
-          photo: { id: '1637074930269-089fde202b57', alt: 'Dois niguiris de salmão sobre prato preto, com hashis apoiados ao lado' },
-        },
-        {
-          name: 'Salmão maçaricado',
-          description: 'Selado no maçarico e pincelado com tarê da casa.',
-          pieces: '2 peças',
-          price: 26, // DEMO
-          tags: ['Novo'],
-          photo: { id: '1711480023277-9f27496f10e6', alt: 'Itamae pincelando molho tarê sobre niguiri recém-maçaricado' },
-        },
-        {
-          name: 'Niguiri de atum',
-          description: 'Akami fresco com um toque de wasabi.',
-          pieces: '2 peças',
-          price: 28, // DEMO
-          photo: { id: '1562707786-7d2b807961c4', alt: 'Niguiris de atum vermelho com guarnição de cebolinha, em close' },
-        },
-      ],
-      more: [
-        { name: 'Peixe branco com yuzu', description: 'Raspas cítricas e sal grosso.', pieces: '2 peças', price: 24 }, // DEMO
-        { name: 'Ebi', description: 'Camarão cozido e aberto em borboleta.', pieces: '2 peças', price: 24 }, // DEMO
-        { name: 'Tamago', description: 'Omelete doce japonês, feito na casa.', pieces: '2 peças', price: 16, tags: ['Vegetariano'] }, // DEMO
-      ],
-    },
-    {
-      id: 'temakis',
-      label: 'Temakis',
-      featured: [
-        {
-          name: 'Temaki de salmão',
-          description: 'Alga crocante, arroz morno e salmão em cubos.',
-          pieces: '1 unidade',
-          price: 34, // DEMO
-          tags: ['Mais pedido'],
-          photo: { id: '1791386809517-60f40f5372dd', alt: 'Dois rolos de alga recheados com arroz e salmão sobre prato branco' },
-        },
-      ],
-      more: [
-        { name: 'Temaki de atum picante', description: 'Atum, pimenta togarashi e cebolinha.', pieces: '1 unidade', price: 38, tags: ['Picante'] }, // DEMO
-        { name: 'Temaki skin', description: 'Pele de salmão crocante e molho tarê.', pieces: '1 unidade', price: 29 }, // DEMO
-        { name: 'Temaki vegetariano', description: 'Pepino, manga, abacate e gergelim.', pieces: '1 unidade', price: 26, tags: ['Vegetariano'] }, // DEMO
-      ],
-    },
-    {
-      id: 'hossomakis',
-      label: 'Hossomakis',
-      featured: [
-        {
-          name: 'Hossomaki de salmão',
-          description: 'O clássico fino, com salmão e alga nori.',
-          pieces: '8 peças',
-          price: 32, // DEMO
-          photo: { id: '1617196034738-26c5f7c977ce', alt: 'Hossomakis de salmão enfileirados ao lado de garrafa de shoyu, em fundo escuro' },
-        },
-        {
-          name: 'Hossomaki de atum',
-          description: 'Atum vermelho com um fio de wasabi.',
-          pieces: '8 peças',
-          price: 36, // DEMO
-          photo: { id: '1780291117619-c58ee7aa740e', alt: 'Prato de hossomakis com gengibre em conserva e hashis, sob luz baixa' },
-        },
-        {
-          name: 'Kappa maki',
-          description: 'Pepino japonês e gergelim tostado.',
-          pieces: '8 peças',
-          price: 22, // DEMO
-          tags: ['Vegetariano'],
-          photo: { id: '1548907368-35e5ea8cbc8a', alt: 'Hossomakis de pepino envoltos em alga, arrumados em prato claro' },
-        },
-      ],
-      more: [
-        { name: 'Hossomaki de kani', description: 'Kani e maionese japonesa.', pieces: '8 peças', price: 24 }, // DEMO
-      ],
-    },
-    {
-      id: 'uramakis',
-      label: 'Uramakis',
-      featured: [
-        {
-          name: 'Ebi tempurá roll',
-          description: 'Camarão empanado, abacate e cobertura de salmão.',
-          pieces: '8 peças',
-          price: 52, // DEMO
-          tags: ['Mais pedido'],
-          photo: { id: '1582450871972-ab5ca641643d', alt: 'Uramaki coberto de abacate com camarão empanado saindo das pontas' },
-        },
-        {
-          name: 'Filadélfia',
-          description: 'Salmão, cream cheese e cebolinha.',
-          pieces: '8 peças',
-          price: 42, // DEMO
-          photo: { id: '1558985212-92c2ff0b56e7', alt: 'Uramakis de salmão e cream cheese em prato escuro com hashis de madeira' },
-        },
-        {
-          name: 'Salmão flambado',
-          description: 'Uramaki selado na chama, com molho da casa.',
-          pieces: '8 peças',
+          description: 'Salmon, tuna, white fish and shrimp of the day.',
+          pieces: '15 slices',
           price: 48, // DEMO
-          tags: ['Novo'],
-          photo: { id: '1761314025679-1bc4e2f6f7fe', alt: 'Uramakis sendo selados por uma chama alaranjada em fundo escuro' },
+          photo: { id: '1772285283419-b34f42b4a4df', alt: 'Selection of salmon, tuna and white fish sashimi arranged on a dark plate' },
+        },
+        {
+          name: 'House Trio',
+          description: 'Salmon, tuna and shrimp, with a complimentary nigiri.',
+          pieces: '12 slices',
+          price: 38, // DEMO
+          photo: { id: '1791386809533-5c2e79e34665', alt: 'Salmon, tuna and shrimp sashimi and nigiri on a black plate' },
         },
       ],
       more: [
-        { name: 'Skin roll', description: 'Pele de salmão crocante e tarê.', pieces: '8 peças', price: 38 }, // DEMO
-        { name: 'Califórnia', description: 'Kani, manga e pepino.', pieces: '8 peças', price: 36 }, // DEMO
+        { name: 'White Fish Sashimi', description: 'With citrus ponzu and scallions.', pieces: '10 slices', price: 26 }, // DEMO
+        { name: 'Tuna Sashimi', description: 'Bluefin akami in a rectangular cut.', pieces: '8 slices', price: 32 }, // DEMO
       ],
     },
     {
-      id: 'entradas',
-      label: 'Entradas',
+      id: 'nigiri',
+      label: 'Nigiri',
       featured: [
         {
-          name: 'Guioza',
-          description: 'Pastel japonês de porco, selado na chapa.',
-          pieces: '6 unidades',
-          price: 34, // DEMO
-          photo: { id: '1738681336104-608b4e7dc3b0', alt: 'Guiozas dourados na chapa servidos em prato preto sobre mesa de madeira' },
+          name: 'Salmon Nigiri',
+          description: 'Warm rice and salmon cut on the bias.',
+          pieces: '2 pcs',
+          price: 9, // DEMO
+          photo: { id: '1637074930269-089fde202b57', alt: 'Two salmon nigiri on a black plate with chopsticks resting beside them' },
         },
         {
-          name: 'Joe de salmão picante',
-          description: 'Salmão com pimenta da casa sobre arroz.',
-          pieces: '4 peças',
-          price: 38, // DEMO
-          tags: ['Picante'],
-          photo: { id: '1712725214706-e564b8dd1bbe', alt: 'Duas peças de joe com salmão picado e molho vermelho apimentado' },
+          name: 'Torched Salmon',
+          description: 'Seared with a torch and brushed with house tare.',
+          pieces: '2 pcs',
+          price: 10, // DEMO
+          tags: ['New'],
+          photo: { id: '1711480023277-9f27496f10e6', alt: 'Sushi chef brushing tare sauce over a freshly torched nigiri' },
         },
         {
-          name: 'Tataki de atum',
-          description: 'Atum selado, ponzu e brotos frescos.',
-          price: 46, // DEMO
-          photo: { id: '1681270507609-e2a5f21969b0', alt: 'Tataki de atum com brotos sendo servido em prato branco de cerâmica' },
+          name: 'Tuna Nigiri',
+          description: 'Fresh akami with a touch of wasabi.',
+          pieces: '2 pcs',
+          price: 11, // DEMO
+          photo: { id: '1562707786-7d2b807961c4', alt: 'Close up of red tuna nigiri garnished with scallions' },
         },
       ],
       more: [
-        { name: 'Missoshiru', description: 'Caldo de missô, tofu e cebolinha.', price: 14, tags: ['Vegetariano'] }, // DEMO
-        { name: 'Edamame', description: 'Vagens cozidas com sal grosso.', price: 22, tags: ['Vegetariano'] }, // DEMO
-        { name: 'Sunomono', description: 'Pepino agridoce com gergelim.', price: 18, tags: ['Vegetariano'] }, // DEMO
+        { name: 'Yuzu White Fish', description: 'Citrus zest and flaky salt.', pieces: '2 pcs', price: 10 }, // DEMO
+        { name: 'Ebi', description: 'Poached shrimp, butterflied.', pieces: '2 pcs', price: 9 }, // DEMO
+        { name: 'Tamago', description: 'Sweet Japanese omelet, made in house.', pieces: '2 pcs', price: 7, tags: ['Vegetarian'] }, // DEMO
       ],
     },
     {
-      id: 'bebidas',
-      label: 'Bebidas',
+      id: 'hand-rolls',
+      label: 'Hand Rolls',
+      featured: [
+        {
+          name: 'Salmon Hand Roll',
+          description: 'Crisp nori, warm rice and diced salmon.',
+          pieces: '1 roll',
+          price: 12, // DEMO
+          tags: ['Popular'],
+          photo: { id: '1791386809517-60f40f5372dd', alt: 'Two nori hand rolls filled with rice and salmon on a white plate' },
+        },
+      ],
+      more: [
+        { name: 'Spicy Tuna Hand Roll', description: 'Tuna, togarashi and scallions.', pieces: '1 roll', price: 13, tags: ['Spicy'] }, // DEMO
+        { name: 'Salmon Skin Hand Roll', description: 'Crispy salmon skin and tare.', pieces: '1 roll', price: 10 }, // DEMO
+        { name: 'Vegetable Hand Roll', description: 'Cucumber, mango, avocado and sesame.', pieces: '1 roll', price: 9, tags: ['Vegetarian'] }, // DEMO
+      ],
+    },
+    {
+      id: 'hosomaki',
+      label: 'Hosomaki',
+      featured: [
+        {
+          name: 'Salmon Hosomaki',
+          description: 'The classic thin roll, salmon and nori.',
+          pieces: '8 pcs',
+          price: 11, // DEMO
+          photo: { id: '1617196034738-26c5f7c977ce', alt: 'Salmon hosomaki lined up next to a soy sauce bottle on a dark background' },
+        },
+        {
+          name: 'Tuna Hosomaki',
+          description: 'Bluefin tuna with a line of wasabi.',
+          pieces: '8 pcs',
+          price: 12, // DEMO
+          photo: { id: '1780291117619-c58ee7aa740e', alt: 'Plate of hosomaki with pickled ginger and chopsticks in low light' },
+        },
+        {
+          name: 'Kappa Maki',
+          description: 'Japanese cucumber and toasted sesame.',
+          pieces: '8 pcs',
+          price: 8, // DEMO
+          tags: ['Vegetarian'],
+          photo: { id: '1548907368-35e5ea8cbc8a', alt: 'Cucumber hosomaki wrapped in nori, arranged on a light plate' },
+        },
+      ],
+      more: [
+        { name: 'Crab Hosomaki', description: 'Kanikama and Japanese mayo.', pieces: '8 pcs', price: 9 }, // DEMO
+      ],
+    },
+    {
+      id: 'rolls',
+      label: 'Rolls',
+      featured: [
+        {
+          name: 'Shrimp Tempura Roll',
+          description: 'Tempura shrimp, avocado and a salmon topping.',
+          pieces: '8 pcs',
+          price: 18, // DEMO
+          tags: ['Popular'],
+          photo: { id: '1582450871972-ab5ca641643d', alt: 'Avocado-topped uramaki with tempura shrimp sticking out of the ends' },
+        },
+        {
+          name: 'Philadelphia Roll',
+          description: 'Salmon, cream cheese and scallions.',
+          pieces: '8 pcs',
+          price: 15, // DEMO
+          photo: { id: '1558985212-92c2ff0b56e7', alt: 'Salmon and cream cheese uramaki on a dark plate with wooden chopsticks' },
+        },
+        {
+          name: 'Flamed Salmon Roll',
+          description: 'Uramaki seared over the flame, with house sauce.',
+          pieces: '8 pcs',
+          price: 17, // DEMO
+          tags: ['New'],
+          photo: { id: '1761314025679-1bc4e2f6f7fe', alt: 'Uramaki being seared by an orange flame against a dark background' },
+        },
+      ],
+      more: [
+        { name: 'Salmon Skin Roll', description: 'Crispy salmon skin and tare.', pieces: '8 pcs', price: 13 }, // DEMO
+        { name: 'California Roll', description: 'Crab, mango and cucumber.', pieces: '8 pcs', price: 13 }, // DEMO
+      ],
+    },
+    {
+      id: 'starters',
+      label: 'Starters',
+      featured: [
+        {
+          name: 'Gyoza',
+          description: 'Pork dumplings, pan-seared on the griddle.',
+          pieces: '6 pcs',
+          price: 12, // DEMO
+          photo: { id: '1738681336104-608b4e7dc3b0', alt: 'Golden pan-seared gyoza on a black plate over a wooden table' },
+        },
+        {
+          name: 'Spicy Salmon Crispy Rice',
+          description: 'Crispy rice topped with salmon and house chili.',
+          pieces: '4 pcs',
+          price: 15, // DEMO
+          tags: ['Spicy'],
+          photo: { id: '1712725214706-e564b8dd1bbe', alt: 'Two pieces topped with chopped salmon and a red spicy sauce' },
+        },
+        {
+          name: 'Tuna Tataki',
+          description: 'Seared tuna, ponzu and fresh sprouts.',
+          price: 19, // DEMO
+          photo: { id: '1681270507609-e2a5f21969b0', alt: 'Tuna tataki with sprouts being served on a white ceramic plate' },
+        },
+      ],
+      more: [
+        { name: 'Miso Soup', description: 'Miso broth, tofu and scallions.', price: 5, tags: ['Vegetarian'] }, // DEMO
+        { name: 'Edamame', description: 'Steamed pods with flaky salt.', price: 7, tags: ['Vegetarian'] }, // DEMO
+        { name: 'Sunomono', description: 'Sweet and sour cucumber with sesame.', price: 7, tags: ['Vegetarian'] }, // DEMO
+      ],
+    },
+    {
+      id: 'drinks',
+      label: 'Drinks',
       featured: [],
       more: [
-        { name: 'Saquê da casa', description: 'Junmai, servido gelado.', pieces: '180 ml', price: 39 }, // DEMO
-        { name: 'Saquê premium', description: 'Junmai daiginjo, garrafa.', pieces: '300 ml', price: 149 }, // DEMO
-        { name: 'Chá verde gelado', description: 'Sencha preparado na casa.', pieces: '400 ml', price: 14 }, // DEMO
-        { name: 'Cerveja japonesa', description: 'Lager importada.', pieces: '355 ml', price: 24 }, // DEMO
-        { name: 'Água com gás', description: 'Garrafa.', pieces: '500 ml', price: 8 }, // DEMO
-        { name: 'Refrigerante', description: 'Lata.', pieces: '350 ml', price: 9 }, // DEMO
+        { name: 'House Sake', description: 'Junmai, served chilled.', pieces: '6 oz', price: 14 }, // DEMO
+        { name: 'Premium Sake', description: 'Junmai daiginjo, bottle.', pieces: '300 ml', price: 68 }, // DEMO
+        { name: 'Iced Green Tea', description: 'Sencha brewed in house.', pieces: '14 oz', price: 5 }, // DEMO
+        { name: 'Japanese Beer', description: 'Imported lager.', pieces: '12 oz', price: 8 }, // DEMO
+        { name: 'Sparkling Water', description: 'Bottle.', pieces: '16 oz', price: 4 }, // DEMO
+        { name: 'Soda', description: 'Can.', pieces: '12 oz', price: 4 }, // DEMO
       ],
     },
   ] as MenuCategory[],
 
   combos: [
     {
-      name: 'Dupla',
+      name: 'Duo',
       pieces: 30,
-      price: 139, // DEMO
-      includes: ['10 niguiris', '10 uramakis', '10 hossomakis', 'Shoyu, gengibre e wasabi'], // DEMO
-      photo: { id: '1607301406259-dfb186e15de8', alt: 'Combinado de sushis em prato preto com pote de shoyu ao lado, vista de cima' },
+      price: 59, // DEMO
+      includes: ['10 nigiri', '10 uramaki', '10 hosomaki', 'Soy sauce, ginger and wasabi'], // DEMO
+      photo: { id: '1607301406259-dfb186e15de8', alt: 'Sushi platter on a black plate with a dish of soy sauce beside it, seen from above' },
     },
     {
       name: 'Kuro',
       pieces: 45,
-      price: 199, // DEMO
+      price: 89, // DEMO
       featured: true,
-      includes: ['15 niguiris', '10 sashimis', '20 uramakis', '2 missoshirus'], // DEMO
-      photo: { id: '1611143669185-af224c5e3252', alt: 'Mesa escura vista de cima com uramakis, niguiris e molhos arrumados para dividir' },
+      includes: ['15 nigiri', '10 sashimi', '20 uramaki', '2 miso soups'], // DEMO
+      photo: { id: '1611143669185-af224c5e3252', alt: 'Dark table seen from above with uramaki, nigiri and sauces set out for sharing' },
     },
     {
-      name: 'Banquete',
+      name: 'Banquet',
       pieces: 70,
-      price: 289, // DEMO
-      includes: ['20 niguiris', '15 sashimis', '35 rolls variados', '4 guiozas'], // DEMO
-      photo: { id: '1780236935125-0e730e303beb', alt: 'Barca de madeira com sushis, sashimis e makis variados' },
+      price: 139, // DEMO
+      includes: ['20 nigiri', '15 sashimi', '35 assorted rolls', '4 gyoza'], // DEMO
+      photo: { id: '1780236935125-0e730e303beb', alt: 'Wooden sushi boat with assorted sushi, sashimi and maki' },
     },
   ],
 
   gallery: [
-    { id: '1730900737644-e146f78db8e7', alt: 'Uramaki recheado de legumes preso entre hashis, isolado em fundo preto', span: 'tall' },
-    { id: '1747471507235-5b5120a411cb', alt: 'Niguiri de camarão em macro sobre superfície de pedra, com luz quente', span: 'wide' },
-    { id: '1675870791262-99ab4c09e2fd', alt: 'Pinça erguendo uma lâmina fina de salmão no escuro', span: '' },
-    { id: '1635452065566-9c89471bb86c', alt: 'Caixa de madeira com cortes de atum e salmão prontos para o balcão', span: '' },
-    { id: '1787504916858-ed4ee6f02348', alt: 'Itamae de uniforme escuro atrás do balcão, com sushis prontos à frente', span: 'tall' },
-    { id: '1633478062482-790e3b5dd810', alt: 'Hashis levantando uma peça de sushi em prato preto', span: '' },
-    { id: '1787589481636-a69533c81edb', alt: 'Uramakis cobertos de ovas laranja e fio de molho em prato claro', span: 'wide' },
-    { id: '1761315413078-1fd73894fe0e', alt: 'Rolo de abacate empanado erguido por hashis sobre fundo verde-escuro', span: '' },
-    { id: '1681270543584-8e541a1bb056', alt: 'Chef de uniforme montando pratos sobre a bancada de preparo', span: 'wide' },
-    { id: '1563245370-cd55e7c95ff4', alt: 'Uramakis variados vistos de cima em tábua escura', span: 'wide' },
+    { id: '1730900737644-e146f78db8e7', alt: 'Vegetable uramaki held between chopsticks, isolated on a black background', span: 'tall' },
+    { id: '1747471507235-5b5120a411cb', alt: 'Macro shot of shrimp nigiri on a stone surface in warm light', span: 'wide' },
+    { id: '1675870791262-99ab4c09e2fd', alt: 'Tweezers lifting a thin slice of salmon in the dark', span: '' },
+    { id: '1635452065566-9c89471bb86c', alt: 'Wooden box with tuna and salmon cuts ready for the counter', span: '' },
+    { id: '1787504916858-ed4ee6f02348', alt: 'Sushi chef in a dark uniform behind the counter, with finished sushi in front', span: 'tall' },
+    { id: '1633478062482-790e3b5dd810', alt: 'Chopsticks lifting a piece of sushi from a black plate', span: '' },
+    { id: '1787589481636-a69533c81edb', alt: 'Uramaki topped with orange roe and a drizzle of sauce on a light plate', span: 'wide' },
+    { id: '1761315413078-1fd73894fe0e', alt: 'Crispy avocado roll held up with chopsticks over a dark green background', span: '' },
+    { id: '1681270543584-8e541a1bb056', alt: 'Chef in uniform plating dishes on the prep counter', span: 'wide' },
+    { id: '1563245370-cd55e7c95ff4', alt: 'Assorted uramaki seen from above on a dark board', span: 'wide' },
   ] as (Photo & { span: '' | 'tall' | 'wide' })[],
 
   reservation: {
-    title: 'Reserve seu lugar no balcão.', // DEMO
-    text: 'São oito lugares no balcão e algumas mesas no salão. Para grupos acima de 12 pessoas, fale com a gente pelo WhatsApp.', // DEMO
-    note: 'Sua reserva será confirmada pela nossa equipe pelo WhatsApp.',
+    title: 'Save your seat at the counter.', // DEMO
+    text: 'Eight seats at the counter and a few tables in the dining room. For parties of more than 12, message us on WhatsApp.', // DEMO
+    note: 'Our team will confirm your reservation on WhatsApp.',
     slotMinutes: 30,
     /** Última reserva aceita X minutos antes do fechamento */
     lastSlotBeforeClose: 60,
     photo: {
       id: '1783192485640-7f3b9cec167e',
-      alt: 'Balcão de madeira do salão com o chef preparando pequenas porções em tigelas',
+      alt: 'Wooden counter in the dining room with the chef preparing small portions in bowls',
     },
   },
 

@@ -13,8 +13,8 @@ interface Item {
 }
 
 const STORAGE_KEY = 'shiori-bag-v1';
-const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
-const money = (v: number) => brl.format(v).replace(/\s/g, ' ');
+const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const money = (v: number) => usd.format(v);
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 
 function load(): Item[] {
@@ -61,7 +61,7 @@ export function initBag(opts: { lenis: Lenis | null; whatsapp: string; restauran
 
   const count = () => items.reduce((n, i) => n + i.qty, 0);
   const total = () => items.reduce((n, i) => n + i.qty * i.price, 0);
-  const mode = () => (form.elements.namedItem('mode') as RadioNodeList).value as 'entrega' | 'retirada';
+  const mode = () => (form.elements.namedItem('mode') as RadioNodeList).value as 'delivery' | 'pickup';
 
   function render() {
     const n = count();
@@ -73,12 +73,12 @@ export function initBag(opts: { lenis: Lenis | null; whatsapp: string; restauran
             <p class="bag-item__name">${esc(i.name)}</p>
             <p class="bag-item__meta">${i.detail ? `${esc(i.detail)} · ` : ''}${money(i.price)}</p>
           </div>
-          <div class="stepper" role="group" aria-label="Quantidade de ${esc(i.name)}">
-            <button type="button" data-step="-1" data-idx="${idx}" aria-label="${i.qty === 1 ? 'Remover' : 'Diminuir'} ${esc(i.name)}">
+          <div class="stepper" role="group" aria-label="Quantity of ${esc(i.name)}">
+            <button type="button" data-step="-1" data-idx="${idx}" aria-label="${i.qty === 1 ? 'Remove' : 'Decrease'} ${esc(i.name)}">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
             </button>
             <span class="stepper__qty" aria-live="polite">${i.qty}</span>
-            <button type="button" data-step="1" data-idx="${idx}" aria-label="Aumentar ${esc(i.name)}">
+            <button type="button" data-step="1" data-idx="${idx}" aria-label="Increase ${esc(i.name)}">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
             </button>
           </div>
@@ -108,14 +108,14 @@ export function initBag(opts: { lenis: Lenis | null; whatsapp: string; restauran
     else items.push({ name: nameAttr, price: Number(btn.dataset.price), detail: btn.dataset.detail || undefined, qty: 1 });
     save(items);
     render();
-    announce.textContent = `${nameAttr} adicionado. ${count()} ${count() === 1 ? 'item' : 'itens'} no pedido.`;
+    announce.textContent = `${nameAttr} added. ${count()} ${count() === 1 ? 'item' : 'items'} in your order.`;
 
     // confirmação no próprio botão e um leve pulso no contador
     btn.classList.add('is-added');
     const label = btn.querySelector<HTMLElement>('[data-add-label]');
     if (label) {
       label.dataset.original ??= label.textContent!;
-      label.textContent = btn.classList.contains('btn') ? 'Adicionado ao pedido' : 'Adicionado';
+      label.textContent = btn.classList.contains('btn') ? 'Added to order' : 'Added';
     }
     clearTimeout(Number(btn.dataset.timer));
     btn.dataset.timer = String(
@@ -180,7 +180,7 @@ export function initBag(opts: { lenis: Lenis | null; whatsapp: string; restauran
     item.qty += Number(b.dataset.step);
     if (item.qty <= 0) {
       items.splice(idx, 1);
-      status.textContent = `${item.name} removido do pedido.`;
+      status.textContent = `${item.name} removed from your order.`;
     }
     save(items);
     render();
@@ -193,12 +193,12 @@ export function initBag(opts: { lenis: Lenis | null; whatsapp: string; restauran
     items = [];
     save(items);
     render();
-    status.textContent = 'Pedido esvaziado.';
+    status.textContent = 'Order cleared.';
     $<HTMLElement>('[data-bag-close]').focus();
   });
 
   const syncMode = () => {
-    const delivery = mode() === 'entrega';
+    const delivery = mode() === 'delivery';
     addressField.hidden = !delivery;
     address.required = delivery;
   };
@@ -220,15 +220,15 @@ export function initBag(opts: { lenis: Lenis | null; whatsapp: string; restauran
     setError(name, '');
     setError(address, '');
     if (name.value.trim().length < 2) {
-      setError(name, 'Informe seu nome.');
+      setError(name, 'Please enter your name.');
       errors.push(name);
     }
-    if (mode() === 'entrega' && address.value.trim().length < 6) {
-      setError(address, 'Informe rua, número e bairro para a entrega.');
+    if (mode() === 'delivery' && address.value.trim().length < 6) {
+      setError(address, 'Please enter your street address for delivery.');
       errors.push(address);
     }
     if (errors.length) {
-      status.textContent = `Revise ${errors.length === 1 ? 'o campo destacado' : 'os campos destacados'}.`;
+      status.textContent = `Please check ${errors.length === 1 ? 'the highlighted field' : 'the highlighted fields'}.`;
       errors[0].focus();
       return;
     }
@@ -236,22 +236,22 @@ export function initBag(opts: { lenis: Lenis | null; whatsapp: string; restauran
     const f = new FormData(form);
     const notes = String(f.get('notes') ?? '').trim();
     const lines = [
-      `Olá! Gostaria de fazer um pedido no ${opts.restaurantName}.`,
+      `Hi! I'd like to place an order at ${opts.restaurantName}.`,
       '',
-      '*Pedido*',
+      '*Order*',
       ...items.map((i) => `${i.qty}x ${i.name}${i.detail ? ` (${i.detail})` : ''} — ${money(i.qty * i.price)}`),
       '',
       `*Subtotal:* ${money(total())}`,
       '',
-      `*Nome:* ${name.value.trim()}`,
-      mode() === 'entrega' ? `*Entrega:* ${address.value.trim()}` : '*Retirada no balcão*',
-      `*Pagamento:* ${f.get('payment')}`,
+      `*Name:* ${name.value.trim()}`,
+      mode() === 'delivery' ? `*Delivery:* ${address.value.trim()}` : '*Pickup at the counter*',
+      `*Payment:* ${f.get('payment')}`,
     ];
-    if (notes) lines.push(`*Observações:* ${notes}`);
-    if (mode() === 'entrega') lines.push('', 'Aguardo a taxa de entrega e o tempo de preparo.');
+    if (notes) lines.push(`*Notes:* ${notes}`);
+    if (mode() === 'delivery') lines.push('', 'Please let me know the delivery fee and the wait time.');
 
     const url = `https://wa.me/${opts.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
-    status.textContent = 'Abrindo o WhatsApp com o seu pedido.';
+    status.textContent = 'Opening WhatsApp with your order.';
     // com 'noopener' o window.open sempre devolve null; corta o vínculo depois
     const win = window.open(url, '_blank');
     if (win) win.opener = null;

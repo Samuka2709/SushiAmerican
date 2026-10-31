@@ -7,7 +7,7 @@ import Icon from './Icon.astro';
 
 const words = (s: string) => s.split(' ');
 ---
-<section class="hero" id="topo" aria-labelledby="hero-title" data-hero>
+<section class="hero" id="top" aria-labelledby="hero-title" data-hero>
   <div class="hero__media">
     <Photo
       photo={r.hero.photo}
@@ -36,25 +36,25 @@ const words = (s: string) => s.split(' ');
 
     <div class="hero__ctas">
       <a class="btn btn--primary" href={whatsappLink(genericOrderMessage())} target="_blank" data-order-generic rel="noopener" data-magnetic>
-        Faça seu pedido <Icon name="arrow" class="btn__arrow" />
+        Order now <Icon name="arrow" class="btn__arrow" />
       </a>
-      <a class="btn btn--outline" href="#cardapio" data-scroll-link>Ver cardápio</a>
+      <a class="btn btn--outline" href="#menu" data-scroll-link>View menu</a>
     </div>
 
     <p class="hero__info">
-      <span data-open-status><span class="status-dot" aria-hidden="true"></span>Horários na seção Visite-nos</span>
+      <span data-open-status><span class="status-dot" aria-hidden="true"></span>Hours in the Visit section</span>
       <span class="sep" aria-hidden="true"></span>
       <span>{r.neighborhood}, {r.city}</span>
       {r.google && (
         <>
           <span class="sep" aria-hidden="true"></span>
-          <span>{r.google.rating.toLocaleString('pt-BR')} no Google</span>
+          <span>{r.google.rating.toLocaleString('en-US')} on Google</span>
         </>
       )}
     </p>
   </div>
 
   <div class="hero__scroll" aria-hidden="true">
-    Role <span class="hero__scroll-line"></span>
+    Scroll <span class="hero__scroll-line"></span>
   </div>
 </section>

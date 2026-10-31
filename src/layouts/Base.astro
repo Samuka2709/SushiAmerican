@@ -27,7 +27,7 @@ const schema = {
   image: `${site}/og.jpg`,
   telephone: r.contact.phoneHref,
   priceRange: r.priceRange,
-  servesCuisine: ['Japonesa', 'Sushi'],
+  servesCuisine: ['Japanese', 'Sushi'],
   acceptsReservations: true,
   hasMenu: `${site}/#cardapio`,
   menu: `${site}/#cardapio`,
@@ -47,7 +47,7 @@ const schema = {
 };
 ---
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -58,7 +58,7 @@ const schema = {
     <meta name="color-scheme" content="dark" />
 
     <meta property="og:type" content="restaurant" />
-    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={r.fullName} />
     <meta property="og:title" content={r.seo.title} />
     <meta property="og:description" content={r.seo.description} />
@@ -74,9 +74,9 @@ const schema = {
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Imagens são pedidas sem CORS: o preconnect não pode ter crossorigin, senão abre outra conexão -->
+    <!-- Images are requested without CORS: the preconnect must not use crossorigin, or it opens a second connection -->
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <!-- Foto do hero (LCP) começa a baixar antes de o navegador chegar ao <img> -->
+    <!-- Hero photo (LCP) starts downloading before the browser reaches the <img> -->
     <link
       rel="preload"
       as="image"
@@ -86,7 +86,7 @@ const schema = {
     />
     <link rel="preload" href={serifHero} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansBody} as="font" type="font/woff2" crossorigin />
-    <!-- Kanji decorativos: só os glifos usados, carregados sem bloquear a pintura -->
+    <!-- Decorative kanji: only the glyphs in use, loaded without blocking render -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
@@ -100,7 +100,7 @@ const schema = {
     <meta name="geo.placename" content={fullAddress()} />
   </head>
   <body>
-    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <a class="skip-link" href="#content">Skip to content</a>
     <slot />
   </body>
 </html>

@@ -34,7 +34,7 @@ if (!reduced) {
 }
 
 function scrollToTarget(target: HTMLElement) {
-  if (lenis) lenis.scrollTo(target, { offset: target.id === 'topo' ? 0 : -16 });
+  if (lenis) lenis.scrollTo(target, { offset: target.id === 'top' ? 0 : -16 });
   else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
   // leva o foco do teclado junto com a rolagem
   if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
@@ -56,15 +56,17 @@ document.addEventListener('click', (e) => {
 /* --------------------------------------------------------------------------
    Horário (sempre no fuso do restaurante)
    -------------------------------------------------------------------------- */
-const DAY_NAMES = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const toMin = (t: string) => {
   const [h, m] = t.split(':').map(Number);
   return h * 60 + m;
 };
 const hourLabel = (t: string) => {
-  const [h, m] = t.split(':');
-  if (t === '24:00') return 'meia-noite';
-  return m === '00' ? `${Number(h)}h` : `${Number(h)}h${m}`;
+  const [h, m] = t.split(':').map(Number);
+  if (h % 24 === 0 && m === 0) return 'midnight';
+  if (h === 12 && m === 0) return 'noon';
+  const h12 = h % 12 || 12;
+  return `${m === 0 ? h12 : `${h12}:${String(m).padStart(2, '0')}`} ${h % 24 >= 12 ? 'PM' : 'AM'}`;
 };
 
 function nowAtRestaurant() {
@@ -90,15 +92,15 @@ function nowAtRestaurant() {
 function openStatus() {
   const now = nowAtRestaurant();
   const today = data.hours[now.day];
-  if (today && now.minutes < toMin(today.open)) return { open: false, text: `Abre hoje às ${hourLabel(today.open)}` };
+  if (today && now.minutes < toMin(today.open)) return { open: false, text: `Opens today at ${hourLabel(today.open)}` };
   if (today && now.minutes < toMin(today.close))
-    return { open: true, text: `Aberto hoje até ${today.close === '24:00' ? 'meia-noite' : hourLabel(today.close)}` };
+    return { open: true, text: `Open today until ${hourLabel(today.close)}` };
   for (let i = 1; i <= 7; i++) {
     const d = (now.day + i) % 7;
     const h = data.hours[d];
-    if (h) return { open: false, text: `Fechado agora · abre ${i === 1 ? 'amanhã' : DAY_NAMES[d]} às ${hourLabel(h.open)}` };
+    if (h) return { open: false, text: `Closed now · opens ${i === 1 ? 'tomorrow' : DAY_NAMES[d]} at ${hourLabel(h.open)}` };
   }
-  return { open: false, text: 'Fechado' };
+  return { open: false, text: 'Closed' };
 }
 
 function initHours() {
@@ -111,7 +113,7 @@ function initHours() {
   const row = $(`[data-hours] tr[data-day="${now.day}"]`);
   if (row) {
     row.classList.add('is-today');
-    row.querySelector('th')!.insertAdjacentHTML('beforeend', '<span class="today-badge">Hoje</span>');
+    row.querySelector('th')!.insertAdjacentHTML('beforeend', '<span class="today-badge">Today</span>');
   }
 }
 initHours();
@@ -283,7 +285,7 @@ function setupScrollReveals() {
       duration: 1.8,
       ease: 'power2.out',
       scrollTrigger: { trigger: el, start: 'top 90%' },
-      onUpdate: () => (el.textContent = Math.round(obj.v).toLocaleString('pt-BR')),
+      onUpdate: () => (el.textContent = Math.round(obj.v).toLocaleString('en-US')),
     });
   });
 
@@ -443,8 +445,7 @@ if (form) {
   };
   const fmtDate = (iso: string) => {
     const [y, m, d] = iso.split('-').map(Number);
-    const wd = new Date(y, m - 1, d).toLocaleDateString('pt-BR', { weekday: 'long' });
-    return `${wd}, ${String(d).padStart(2, '0')}/${String(m).padStart(2, '0')}/${y}`;
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   };
 
   function fillTimes() {
@@ -453,14 +454,14 @@ if (form) {
     hint.textContent = '';
     if (!iso) {
       f.time.disabled = true;
-      f.time.add(new Option('Escolha a data primeiro', ''));
+      f.time.add(new Option('Choose a date first', ''));
       return;
     }
     const h = data.hours[weekdayOf(iso)];
     if (!h) {
       f.time.disabled = true;
-      f.time.add(new Option('Fechado neste dia', ''));
-      hint.textContent = `Não abrimos às ${DAY_NAMES[weekdayOf(iso)]}s. Escolha outra data.`;
+      f.time.add(new Option('Closed on this day', ''));
+      hint.textContent = `We are closed on ${DAY_NAMES[weekdayOf(iso)]}s. Please choose another date.`;
       return;
     }
     const { slotMinutes, lastSlotBeforeClose } = data.reservation;
@@ -471,25 +472,26 @@ if (form) {
     }
     if (!slots.length) {
       f.time.disabled = true;
-      f.time.add(new Option('Sem horários hoje', ''));
-      hint.textContent = 'Os horários de hoje já passaram. Escolha outra data.';
+      f.time.add(new Option('No times left today', ''));
+      hint.textContent = 'Today’s times have passed. Please choose another date.';
       return;
     }
     f.time.disabled = false;
-    f.time.add(new Option('Selecione', ''));
-    slots.forEach((s) => f.time.add(new Option(s.replace(':', 'h'), s)));
+    f.time.add(new Option('Select a time', ''));
+    const cap = (t: string) => t[0].toUpperCase() + t.slice(1);
+    slots.forEach((s) => f.time.add(new Option(cap(hourLabel(s)), s)));
   }
   f.date.addEventListener('change', () => {
     fillTimes();
     setError(f.date, '');
   });
 
-  // Máscara leve de telefone: (73) 99999-9999
+  // Máscara leve de telefone americano: (503) 555-0123
   f.phone.addEventListener('input', () => {
-    const d = f.phone.value.replace(/\D/g, '').slice(0, 11);
+    const d = f.phone.value.replace(/\D/g, '').replace(/^1/, '').slice(0, 10);
     let out = d;
-    if (d.length > 2) out = `(${d.slice(0, 2)}) ${d.slice(2)}`;
-    if (d.length > 7) out = `(${d.slice(0, 2)}) ${d.slice(2, d.length - 4)}-${d.slice(-4)}`;
+    if (d.length > 3) out = `(${d.slice(0, 3)}) ${d.slice(3)}`;
+    if (d.length > 6) out = `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
     f.phone.value = out;
   });
 
@@ -502,14 +504,14 @@ if (form) {
 
   function validate() {
     const errors: [HTMLElement, string][] = [];
-    if (f.name.value.trim().length < 2) errors.push([f.name, 'Informe seu nome.']);
-    const digits = f.phone.value.replace(/\D/g, '');
-    if (digits.length < 10 || digits.length > 11) errors.push([f.phone, 'Informe um telefone com DDD, por exemplo (73) 99999-9999.']);
-    if (!f.date.value) errors.push([f.date, 'Escolha a data.']);
-    else if (f.date.value < today.iso) errors.push([f.date, 'Escolha uma data a partir de hoje.']);
-    else if (!data.hours[weekdayOf(f.date.value)]) errors.push([f.date, 'Estamos fechados neste dia. Escolha outra data.']);
-    if (f.date.value && !f.time.value && !f.time.disabled) errors.push([f.time, 'Escolha o horário.']);
-    else if (f.date.value && f.time.disabled && data.hours[weekdayOf(f.date.value)]) errors.push([f.date, 'Não há horários livres nesta data. Escolha outra.']);
+    if (f.name.value.trim().length < 2) errors.push([f.name, 'Please enter your name.']);
+    const digits = f.phone.value.replace(/\D/g, '').replace(/^1/, '');
+    if (digits.length !== 10) errors.push([f.phone, 'Please enter a 10-digit phone number, for example (503) 555-0123.']);
+    if (!f.date.value) errors.push([f.date, 'Please choose a date.']);
+    else if (f.date.value < today.iso) errors.push([f.date, 'Please choose today or a later date.']);
+    else if (!data.hours[weekdayOf(f.date.value)]) errors.push([f.date, 'We are closed on this day. Please choose another date.']);
+    if (f.date.value && !f.time.value && !f.time.disabled) errors.push([f.time, 'Please choose a time.']);
+    else if (f.date.value && f.time.disabled && data.hours[weekdayOf(f.date.value)]) errors.push([f.date, 'No times available on this date. Please choose another.']);
     [f.name, f.phone, f.date, f.time].forEach((el) => setError(el, ''));
     errors.forEach(([el, msg]) => setError(el, msg));
     return errors;
@@ -525,23 +527,23 @@ if (form) {
     e.preventDefault();
     const errors = validate();
     if (errors.length) {
-      status.textContent = `Revise ${errors.length === 1 ? 'o campo destacado' : `os ${errors.length} campos destacados`}.`;
+      status.textContent = `Please check ${errors.length === 1 ? 'the highlighted field' : `the ${errors.length} highlighted fields`}.`;
       errors[0][0].focus();
       return;
     }
-    const people = f.people.value === '12+' ? '12 ou mais' : f.people.value;
+    const people = f.people.value === '12+' ? '12 or more' : f.people.value;
     const lines = [
-      `Olá! Gostaria de reservar uma mesa no ${data.name}.`,
+      `Hi! I'd like to book a table at ${data.name}.`,
       '',
-      `Nome: ${f.name.value.trim()}`,
-      `Telefone: ${f.phone.value.trim()}`,
-      `Data: ${fmtDate(f.date.value)}`,
-      `Horário: ${f.time.value.replace(':', 'h')}`,
-      `Pessoas: ${people}`,
+      `Name: ${f.name.value.trim()}`,
+      `Phone: ${f.phone.value.trim()}`,
+      `Date: ${fmtDate(f.date.value)}`,
+      `Time: ${hourLabel(f.time.value)}`,
+      `Guests: ${people}`,
     ];
-    if (f.notes.value.trim()) lines.push(`Observações: ${f.notes.value.trim()}`);
+    if (f.notes.value.trim()) lines.push(`Notes: ${f.notes.value.trim()}`);
     const url = `https://wa.me/${data.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
-    status.textContent = 'Abrindo o WhatsApp com a sua mensagem. A reserva será confirmada pela nossa equipe.';
+    status.textContent = 'Opening WhatsApp with your message. Our team will confirm your reservation.';
     // com 'noopener' o window.open sempre devolve null; corta o vínculo depois
     const win = window.open(url, '_blank');
     if (win) win.opener = null;

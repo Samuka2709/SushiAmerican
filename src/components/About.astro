@@ -4,7 +4,7 @@ import Photo from './Photo.astro';
 import SectionLabel from './SectionLabel.astro';
 const a = r.about;
 ---
-<section class="section about" id="sobre" aria-labelledby="sobre-title">
+<section class="section about" id="about" aria-labelledby="about-title">
   <div class="container">
     <div class="about__grid">
       <div class="about__photos">
@@ -19,7 +19,7 @@ const a = r.about;
       <div class="about__text">
         <span class="kanji" aria-hidden="true">栞</span>
         <SectionLabel num="01" text={a.label} />
-        <h2 class="display h2 about__title reveal-words" id="sobre-title" data-split-auto>{a.title}</h2>
+        <h2 class="display h2 about__title reveal-words" id="about-title" data-split-auto>{a.title}</h2>
         <div class="about__body">
           {a.paragraphs.map((p) => <p data-reveal="fade">{p}</p>)}
         </div>
@@ -40,7 +40,7 @@ const a = r.about;
       {a.stats.map((s) => (
         <div class="stat" data-reveal="fade">
           <dt class="sr-only">{s.label}</dt>
-          <dd class="stat__value" data-count={s.value}>{s.value.toLocaleString('pt-BR')}{s.suffix}</dd>
+          <dd class="stat__value" data-count={s.value}>{s.value.toLocaleString('en-US')}{s.suffix}</dd>
           <dd class="stat__label" aria-hidden="true">{s.label}</dd>
         </div>
       ))}
