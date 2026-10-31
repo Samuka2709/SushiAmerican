@@ -53,7 +53,7 @@ export const restaurant = {
   city: 'Caserta', // DEMO
   neighborhood: 'Centro', // DEMO
   /** Domínio próprio do cliente. Vazio = usa o endereço de produção da Vercel. */
-  siteUrl: 'https://shiori-caserta.vercel.app', // DEMO
+  siteUrl: '', // DEMO (ex.: 'https://kikkosan.it')
   timezone: 'Europe/Rome', // DEMO
   foundedYear: 2014, // DEMO
   priceRange: '€€',
