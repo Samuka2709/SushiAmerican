@@ -51,8 +51,10 @@ const schema = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>{r.seo.title}</title>
-    <meta name="description" content={r.seo.description} />
+    <title>{`${r.seo.title} (concept project)`}</title>
+    <meta name="description" content={`Concept project, not a real restaurant. ${r.seo.description}`} />
+    <!-- Portfolio concept with a fictional brand: keep it out of search results so nobody mistakes it for a real business -->
+    <meta name="robots" content="noindex" />
     <link rel="canonical" href={`${site}/`} />
     <meta name="theme-color" content="#080808" />
     <meta name="color-scheme" content="dark" />
@@ -60,8 +62,8 @@ const schema = {
     <meta property="og:type" content="restaurant" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={r.fullName} />
-    <meta property="og:title" content={r.seo.title} />
-    <meta property="og:description" content={r.seo.description} />
+    <meta property="og:title" content={`${r.seo.title} (concept project)`} />
+    <meta property="og:description" content={`Concept project, not a real restaurant. ${r.seo.description}`} />
     <meta property="og:url" content={`${site}/`} />
     <meta property="og:image" content={`${site}/og.jpg`} />
     <meta property="og:image:width" content="1200" />
@@ -101,6 +103,9 @@ const schema = {
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Skip to content</a>
+    <aside class="concept-ribbon" aria-label="About this site">
+      <p><strong>Concept project</strong><span class="concept-ribbon__long"> · a portfolio design for a fictional restaurant. Name, menu, prices, address and contacts are not real.</span><span class="concept-ribbon__short"> · fictional restaurant, not a real business</span></p>
+    </aside>
     <slot />
   </body>
 </html>

@@ -2571,3 +2571,50 @@ textarea.input {
   max-width: none;
   margin-inline: auto;
 }
+
+/* Concept-project notice: fixed thin bar on top, header sits just below it */
+:root {
+  --ribbon-h: 30px;
+}
+.concept-ribbon {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: calc(var(--z-header) + 1);
+  height: var(--ribbon-h);
+  display: grid;
+  place-items: center;
+  padding-inline: 12px;
+  background: #c6a15b;
+  color: #080808;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  text-align: center;
+  overflow: hidden;
+}
+.concept-ribbon p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.header {
+  top: var(--ribbon-h);
+}
+.header.is-hidden {
+  transform: translateY(calc(-100% - var(--ribbon-h)));
+}
+html {
+  scroll-padding-top: calc(88px + var(--ribbon-h));
+}
+.concept-ribbon__short {
+  display: none;
+}
+@media (max-width: 700px) {
+  .concept-ribbon__long {
+    display: none;
+  }
+  .concept-ribbon__short {
+    display: inline;
+  }
+}
